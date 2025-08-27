@@ -1,5 +1,7 @@
-import Home from "./home";
-
-export default function HomePage() {
-  return <Home />;
+export default function SiteLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <div>{children}</div>;
 }
