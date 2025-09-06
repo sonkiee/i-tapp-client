@@ -1,0 +1,16 @@
+/* Load Tailwind (v4 includes preflight, components, utilities) */
+@import "tailwindcss";
+
+/* If you use animate plugin */
+@import "tw-animate-css";
+
+/* Your own base styles */
+@import "./base/_index.css";
+
+/* Global defaults using Tailwind classes */
+
+a:hover,
+button:hover {
+  opacity: 0.5;
+  transition: all ease-in 0.2s;
+}
