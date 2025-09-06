@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils/tw";
+import { cn } from "@/lib/utils";
 
 function FormField({
   className,
