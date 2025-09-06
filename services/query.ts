@@ -34,7 +34,9 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
-import { env, isAbsoluteUrl } from "@/lib/utils";
+
+import { isAbsoluteUrl } from "next/dist/shared/lib/utils";
+import { env } from "@/lib/utils/util";
 
 export async function query(url = "", options = {}) {
   const requestUrl = isAbsoluteUrl(url)
