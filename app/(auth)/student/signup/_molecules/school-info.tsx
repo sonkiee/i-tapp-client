@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { InputDescription } from "@/components/ui/input-description";
 
-import db from "../../../../../../db.json";
+// import db from "../../../../../../db.json";
 import { verifyStudentIdentitySchema } from "@/lib/validations/auth";
 import { useAction } from "next-safe-action/hooks";
 import { verifyStudentIdentity } from "@/api/actions/auth";
@@ -21,6 +21,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { db } from "@/db";
 
 export function SchoolInfo({
   formIndex,

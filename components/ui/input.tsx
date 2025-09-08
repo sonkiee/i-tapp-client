@@ -1,73 +1,22 @@
-"use client";
+import * as React from "react"
 
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Eye, EyeSlash } from "iconsax-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
-const inputVariants = cva(
-  "flex items-center gap-2 w-full rounded-[4px] border bg-white p-3 text-base ring-offset-white focus-visible:outline-none placeholder:text-grey-4 text-grey-2 disabled:cursor-not-allowed disabled:opacity-50 [&input]:disabled:opacity-50",
-  {
-    variants: {
-      variant: {
-        default: "border-grey-4",
-        warning: "border-warning",
-        error: "border-danger",
-        success: "border-success",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
-
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement>,
-    VariantProps<typeof inputVariants> {
-  startAdornment?: React.ReactNode;
-  endAdornment?: React.ReactNode;
-  isHiddenField?: boolean;
-}
-
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    {
-      className,
-      variant,
-      type,
-      endAdornment,
-      startAdornment,
-      isHiddenField,
-      ...props
-    },
-    ref
-  ) => {
-    const [showValue, setShowValue] = React.useState<boolean>(false);
-
+const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
+  ({ className, type, ...props }, ref) => {
     return (
-      <div className={cn(inputVariants({ className, variant }))}>
-        {startAdornment && <span>{startAdornment}</span>}
-        <input
-          type={showValue ? "text" : isHiddenField ? "password" : type}
-          ref={ref}
-          className="outline-none focus:outline-none w-full bg-transparent placeholder:text-[#B5B7C0]"
-          {...props}
-        />
-        {endAdornment && <span>{endAdornment}</span>}
-        {isHiddenField && (
-          <button type="button" onClick={() => setShowValue(!showValue)}>
-            {showValue ? (
-              <Eye size={18} className="cursor-pointer text-grey-2" />
-            ) : (
-              <EyeSlash size={18} className="cursor-pointer text-grey-2" />
-            )}
-          </button>
+      <input
+        type={type}
+        className={cn(
+          "flex h-9 w-full rounded-md border border-gray-200 bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-gray-950 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:border-gray-800 dark:file:text-gray-50 dark:placeholder:text-gray-400 dark:focus-visible:ring-gray-300",
+          className
         )}
-      </div>
-    );
+        ref={ref}
+        {...props}
+      />
+    )
   }
-);
-Input.displayName = "Input";
+)
+Input.displayName = "Input"
 
-export { Input };
+export { Input }

@@ -14,8 +14,8 @@ import {
 import { Logo } from "@/components/logo";
 import { Wrapper } from "@/components/wrapper";
 import { MobileNav } from "./mobile-nav";
-import { cn } from "@/lib/utils/tw";
 import { useGlobal } from "@/context/GlobalContext";
+import { cn } from "@/lib/utils";
 
 export const navLinks: { text: string; href: string }[] = [
   {

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import { GlobalProvider } from "@/context/GlobalContext";
+import { AppProvider } from "@/components/providers/app-provider";
 
 export const inter = Inter({
   weight: ["400", "600", "700"],
@@ -25,11 +27,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={(inter.className, inter.variable, montserrat.variable)}
-    >
-      <body>{children}</body>
+    // className={(inter.className, inter.variable, montserrat.variable)}
+    <html lang="en">
+      <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
+        <GlobalProvider>
+          <AppProvider>{children}</AppProvider>
+        </GlobalProvider>
+      </body>
     </html>
   );
 }

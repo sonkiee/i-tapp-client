@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-react";
 import { usePathname } from "next/navigation";
 import { useGlobal } from "@/context/GlobalContext";
-import { cn } from "@/lib/utils/tw";
+import { cn } from "@/lib/utils";
 
 type Job = {
   id: string;

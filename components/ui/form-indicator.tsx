@@ -1,6 +1,5 @@
+import { cn } from "@/lib/utils";
 import React, { type Dispatch, type SetStateAction } from "react";
-
-import { cn } from "@/lib/utils/tw";
 
 export function FormIndicator({
   steps = 3,

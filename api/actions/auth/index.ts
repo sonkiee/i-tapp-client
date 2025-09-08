@@ -1,7 +1,7 @@
 "use server";
 
-import { Schema, z } from "zod";
-import { actionClient } from "@/services/action";
+import { z } from "zod";
+// import { actionClient } from "@/services/action";
 import {
   verifyStudentIdentitySchema,
   signinSchema,
@@ -14,9 +14,10 @@ import {
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
+import { actionClient } from "@/lib/safe-action";
 
 export const approveCompany = actionClient
-  .schema(companyIdSchema)
+  .inputSchema(companyIdSchema)
   .action(async ({ parsedInput: { companyId } }) => {
     try {
       const response = await mutate(`/admin/company/approve`, { companyId });
@@ -31,7 +32,7 @@ export const approveCompany = actionClient
   });
 
 export const declineCompany = actionClient
-  .schema(companyIdSchema)
+  .inputSchema(companyIdSchema)
   .action(async ({ parsedInput: { companyId } }) => {
     try {
       const response = await mutate(`/admin/company/decline`, { companyId });
@@ -47,7 +48,7 @@ export const declineCompany = actionClient
 
 export const signinStudent = actionClient
 
-  .schema(signinSchema)
+  .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     const response = await mutate("/auth/login", {
       email,
@@ -74,7 +75,7 @@ export const signinStudent = actionClient
 
 export const signinCompany = actionClient
 
-  .schema(signinSchema)
+  .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     const response = await mutate("/company/login", {
       email,
@@ -111,7 +112,7 @@ export const logout = actionClient.schema(logoutSchema).action(async ({}) => {
 
 export const studentSignup = actionClient
 
-  .schema(signupSchema)
+  .inputSchema(signupSchema)
   .action(
     async ({
       parsedInput: {
@@ -145,7 +146,7 @@ export const studentSignup = actionClient
 
 export const companySignup = actionClient
 
-  .schema(fullCompanySignupSchema)
+  .inputSchema(fullCompanySignupSchema)
   .action(
     async ({
       parsedInput: {
@@ -178,7 +179,7 @@ export const companySignup = actionClient
 
 export const verifyStudentIdentity = actionClient
 
-  .schema(verifyStudentIdentitySchema)
+  .inputSchema(verifyStudentIdentitySchema)
   .action(async ({ parsedInput: { matNo } }) => {
     // return true;
     const response = await mutate("/student/check", {
@@ -265,7 +266,7 @@ const applyJ = z.object({
 
 export const apply = actionClient
 
-  .schema(applyJ)
+  .inputSchema(applyJ)
   .action(async ({ parsedInput: { jobId } }) => {
     try {
       const response = await mutate("/student/job/apply", { jobId });
@@ -279,7 +280,7 @@ export const apply = actionClient
 
 export const acceptApplication = actionClient
 
-  .schema(acceptSchema)
+  .inputSchema(acceptSchema)
   .action(async ({ parsedInput: studentId }) => {
     try {
       const response = await mutate(`/company/applicants/accept/`, studentId);
@@ -294,7 +295,7 @@ export const acceptApplication = actionClient
 
 export const declineApplication = actionClient
 
-  .schema(acceptSchema)
+  .inputSchema(acceptSchema)
   .action(async ({ parsedInput: studentId }) => {
     try {
       const response = await mutate(`/company/applicants/accept/`, studentId);
@@ -308,7 +309,7 @@ export const declineApplication = actionClient
   });
 
 export const bookmarkApplication = actionClient
-  .schema(acceptSchema)
+  .inputSchema(acceptSchema)
 
   .action(async ({ parsedInput: studentId }) => {
     try {
@@ -324,7 +325,7 @@ export const bookmarkApplication = actionClient
 
 export const save = actionClient
 
-  .schema(applyJ)
+  .inputSchema(applyJ)
   .action(async ({ parsedInput: { jobId } }) => {
     try {
       const response = await mutate("/student/saved/applications", { jobId });
@@ -338,7 +339,7 @@ export const save = actionClient
 
 export const createSpace = actionClient
 
-  .schema(createSpaceSchema)
+  .inputSchema(createSpaceSchema)
   .action(
     async ({
       parsedInput: {
@@ -374,7 +375,7 @@ export const createSpace = actionClient
 
 export const updateSpace = actionClient
 
-  .schema(createSpaceSchema)
+  .inputSchema(createSpaceSchema)
   .action(
     async ({
       parsedInput: {
@@ -430,7 +431,7 @@ const updateProfileSchema = z.object({
 // Create the action
 export const updateProfile = actionClient
 
-  .schema(updateProfileSchema)
+  .inputSchema(updateProfileSchema)
   .action(
     async ({
       parsedInput: { firstName, lastName, email, phoneNumber, bio, password },

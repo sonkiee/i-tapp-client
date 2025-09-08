@@ -10,7 +10,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { cn } from "@/lib/utils/tw";
+import { cn } from "@/lib/utils";
 
 interface SitePaginationProps {
   totalPosts: number;
