@@ -2,7 +2,7 @@ import { Wrapper } from "@/components/wrapper";
 
 export function Intro() {
   return (
-    <div className=" bg-gradient-to-b from-[#9499dd1a] from-0% to-[#0010ff1a] to-100% max-w-full">
+    <div className=" bg-linear-to-b from-[#9499dd1a] from-0% to-[#0010ff1a] to-100% max-w-full">
       <Wrapper className=" relative">
         <h2 className="text-h2 sm:text-h1">About i-Tapp</h2>
         <p className="max-w-96 mt-4 text-sm sm:text-base">

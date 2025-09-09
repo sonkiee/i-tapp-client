@@ -52,7 +52,7 @@ export function Footer() {
           <Link href={"https://instagram.com/itapp.tech"}>
             <Image
               src={instagram}
-              className="bg-primary mr-2 rounded-sm inline-block p-1 size-12 bg-gradient-to-tr from-[#FFB73D] from-10% via-[#C47067] via-45.55% to-[#9D23E4] to-96.85%"
+              className="bg-primary mr-2 rounded-sm inline-block p-1 size-12 bg-linear-to-tr from-[#FFB73D] from-10% via-[#C47067] via-45.55% to-[#9D23E4] to-96.85%"
               alt="twitter"
             />
           </Link>

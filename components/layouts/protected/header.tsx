@@ -43,7 +43,7 @@ export function Header() {
 
   return (
     <header className="w-full fixed px-4 top-0 bg-white border-b z-10 border-grey-5">
-      <Wrapper className="flex items-center h-16 justify-between !py-6 md:px-0 touch:px-0">
+      <Wrapper className="flex items-center h-16 justify-between py-6! md:px-0 touch:px-0">
         <Link href="/portal/find-it-space">
           <Logo />
         </Link>

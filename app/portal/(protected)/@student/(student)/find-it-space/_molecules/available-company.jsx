@@ -16,7 +16,7 @@ export default function AvailableCompany({ details, setCompanyId }) {
 
   return (
     <div
-      className="bg-white rounded-xl p-5 basis-[15rem] flex-grow  "
+      className="bg-white rounded-xl p-5 basis-60 grow  "
       onClick={() => {
         setCompanyId(id);
       }}

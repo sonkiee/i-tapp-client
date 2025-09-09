@@ -9,7 +9,7 @@ import { buttonVariants } from "@/components/ui/button";
 export function Header() {
   return (
     <header className="w-full fixed top-0 bg-white border-b z-10 border-grey-5 ">
-      <Wrapper className="flex items-center h-16 justify-between !py-6">
+      <Wrapper className="flex items-center h-16 justify-between py-6!">
         <Logo />
         {/* Navigation Links */}
         <nav className="items-center gap-14 hidden md:flex">

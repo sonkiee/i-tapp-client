@@ -10,7 +10,7 @@ export function Hero() {
   return (
     <Wrapper className="flex flex-col lg:flex-row items-center justify-center">
       <div className="flex-1 flex flex-col gap-8 max-w-[600px] text-center lg:text-left">
-        <h1 className="text-black text-h3 leading-[60px] font-[500] sm:font-[500] sm:leading-[60px] sm:text-h2 md:text-h1 md:leading-[90px] md:font-[500]">
+        <h1 className="text-black text-h3 leading-[60px] font-medium sm:font-medium sm:leading-[60px] sm:text-h2 md:text-h1 md:leading-[90px] md:font-medium">
           Bridging the gap between companies and students.
         </h1>
         <p className="text-black text-sm sm:text-md leading-7 max-w-[511px] mx-auto">
@@ -32,7 +32,7 @@ export function Hero() {
             "radial-gradient(circle, rgba(204, 222, 238, 1) 0%, rgba(204, 222, 238, 0) 60%)",
         }}
       >
-        <div className="flex-grow flex items-center justify-center py-10 px-20">
+        <div className="grow flex items-center justify-center py-10 px-20">
           <div className="relative w-[350px] h-[250px]">
             <div className="absolute top-0 left-0 right-5 rounded-full w-[130px] h-[130px] overflow-hidden bg-[#8CD9C0]">
               <Image

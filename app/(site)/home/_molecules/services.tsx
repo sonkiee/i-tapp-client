@@ -7,7 +7,7 @@ import { Wrapper } from "@/components/wrapper";
 
 export function Services() {
   return (
-    <div className="bg-gradient-to-t from-[#CEDCEE] via-white to-white ">
+    <div className="bg-linear-to-t from-[#CEDCEE] via-white to-white ">
       <Wrapper className="flex flex-col gap-[102px]">
         <div className="w-full flex flex-col gap-6 items-center sm:items-start">
           <h2 className="text-h4 sm:text-h3 md:text-h2 text-[#242E4C] max-w-[610px] text-center sm:text-left">

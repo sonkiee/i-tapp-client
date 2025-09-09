@@ -1,5 +1,84 @@
-@import "tailwindcss";
+/* globals.css */
+/** biome-ignore-all lint/suspicious/noUnknownAtRules: <explanation> */
 
-@import "tw-animate-css";
+@import "./base/_index.css";
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
 
 /* @import "./base/_index.css"; */
+
+/* Theme tokens */
+@theme {
+  /* Breakpoints (screens) */
+  --breakpoint-xxs: 375px;
+  --breakpoint-xs: 425px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 960px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-touch: 1200px;
+  --breakpoint-xl: 1440px;
+
+  /* Colors */
+  --color-primary: #477dc0;
+  --color-secondary: #cedcee;
+  --color-info: #2f80ed;
+  --color-warning: #27ae60;
+  --color-success: #e2b93b;
+  --color-danger: #eb5757;
+  --color-black: #282828;
+  --color-white: #ffffff;
+  --color-grey-1: #333333;
+  --color-grey-2: #4f4f4f;
+  --color-grey-3: #828282;
+  --color-grey-4: #bdbdbd;
+  --color-grey-5: #e0e0e0;
+  --color-tertiary-1: #80a4d3;
+  --color-tertiary-2: #a6bfe0;
+
+  /* Fonts */
+  --font-inter: var(--font-inter);
+  --font-montserrat: var(--font-montserrat);
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+
+  /* Font sizes (simplified — exact lineHeight/fontWeight needs tokens) */
+  --text-h1: 3.5rem;
+  --text-h2: 3rem;
+  --text-h3: 2.5rem;
+  --text-h4: 2rem;
+  --text-h5: 1.5rem;
+  --text-h6: 1.25rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.25rem;
+}
+
+/* Custom utilities / animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@utility accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+@utility accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}

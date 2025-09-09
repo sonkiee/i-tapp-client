@@ -45,9 +45,7 @@ export function CompanySignIn() {
       const userRole = data?.data?.user?.role;
       const user = data?.data?.user;
       const company = data?.data?.company;
-      const accessToken = data?.data?.accessToken;
 
-      localStorage.setItem("token", accessToken);
       if (userRole === "student") {
         router.push("/portal/find-it-space");
         localStorage.setItem("user", JSON.stringify(user));
@@ -98,7 +96,7 @@ export function CompanySignIn() {
 
       {hasErrored && (
         <span className="text-danger font-semi-bold ">
-          {result.serverError?.message}
+          {result.serverError}
         </span>
       )}
 
