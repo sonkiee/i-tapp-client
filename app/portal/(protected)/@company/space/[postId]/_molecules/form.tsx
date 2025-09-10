@@ -23,9 +23,10 @@ import {
 } from "@/components/ui/form";
 import { useGlobal } from "@/context/GlobalContext";
 import { useAction } from "next-safe-action/hooks";
-import { updateSpace } from "@/api/actions/auth";
+// import { updateSpace } from "@/api/actions/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { updateSpace } from "@/actions/company";
 
 export function UpdateSpaceForm() {
   const { selectedJob } = useGlobal();

@@ -24,10 +24,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { createSpace } from "@/api/actions/auth";
+// import { createSpace } from "@/api/actions/auth";
 import { createSpaceSchema } from "@/lib/validations/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createSpace } from "@/actions/company";
 
 export function AddSpaceForm() {
   const form = useForm<z.infer<typeof createSpaceSchema>>({

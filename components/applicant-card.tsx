@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -10,15 +11,15 @@ import {
   TickCircle,
 } from "iconsax-react";
 import { useGlobal } from "@/context/GlobalContext";
-import {
-  acceptApplication,
-  declineApplication,
-  bookmarkApplication,
-} from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Applicant } from "@/types";
+import {
+  acceptApplication,
+  bookmarkApplication,
+  declineApplication,
+} from "@/actions/company";
 
 export function ApplicantCard({ applicant }: { applicant: Applicant }) {
   const { setSelectedApplicant } = useGlobal();

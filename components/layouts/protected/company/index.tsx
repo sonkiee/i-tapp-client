@@ -1,12 +1,17 @@
 "use client";
 
+import React from "react";
 import { Wrapper } from "@/components/wrapper";
 import { CompanyHeader } from "../company-header";
 import { Nav } from "../nav";
 import { useGlobal } from "@/context/GlobalContext";
 import { useEffect } from "react";
-import { fetchAllCompanyApplications } from "@/api/actions/auth";
-import { fetchCompanyJobs } from "@/api/actions/auth";
+import {
+  fetchAllCompanyApplications,
+  fetchCompanyJobs,
+} from "@/actions/company";
+// import { fetchAllCompanyApplications } from "@/api/actions/auth";
+// import { fetchCompanyJobs } from "@/api/actions/auth";
 
 export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
   const {

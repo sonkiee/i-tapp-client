@@ -1,11 +1,12 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "iconsax-react";
 import { useState } from "react";
 import { useGlobal } from "@/context/GlobalContext";
-import { logout } from "@/api/actions/auth";
+// import { logout } from "@/api/actions/auth";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { navLinks } from "./company-header";
@@ -17,7 +18,7 @@ export function CompanyMobileNav() {
   const { company } = useGlobal();
 
   const handleLogout = () => {
-    logout({});
+    // logout({});
     window.location.href = "/";
   };
 

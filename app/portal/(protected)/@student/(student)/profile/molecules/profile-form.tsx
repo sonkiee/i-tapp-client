@@ -7,18 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Upload } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { updateProfile } from "@/api/actions/auth";
-import { Wrapper } from "@/components/wrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useGlobal } from "@/context/GlobalContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { logout } from "@/api/actions/auth";
+// import { logout } from "@/api/actions/auth";
 import Image from "next/image";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+// const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
 // Form schema
 const profileSchema = z.object({
@@ -65,7 +63,7 @@ export default function ProfileForm() {
     }
   );
   const handleLogout = () => {
-    logout("");
+    // logout("");
     window.location.href = "/";
   };
 

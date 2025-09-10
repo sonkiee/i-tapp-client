@@ -18,7 +18,8 @@ import {
 } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
-import { apply } from "@/api/actions/auth";
+// import { apply } from "@/api/actions/auth";
+import { apply } from "@/actions/student";
 // import { ButtonWithLoader } from "@/components/button-with-loader";
 
 const formSchema = z.object({

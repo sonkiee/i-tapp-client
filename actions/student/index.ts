@@ -1,49 +1,7 @@
-import { mutate, query } from "@/lib/api";
+import { mutate } from "@/lib/api";
 import { actionClient } from "@/lib/safe-action";
 import { verifyStudentIdentitySchema } from "@/lib/validations/auth";
 import z from "zod";
-
-export const fetchAcceptedApplications = actionClient.action(async () => {
-  try {
-    const response = await query("/student/job/current");
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-export const fetchJobs = actionClient.action(async () => {
-  try {
-    const response = await query("/student/jobs");
-    const data = await response.json(); // Parse the body
-    console.log(data.data);
-    return data.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const fetchApplication = actionClient.action(async () => {
-  try {
-    const response = await query("/student/applications");
-    const data = await response.json(); // Parse the body
-    console.log(data);
-    return data.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-export const fetchSavedApplication = actionClient.action(async () => {
-  try {
-    const response = await query("/student/saved/applications");
-    const data = await response.json(); // Parse the body
-    return data.data;
-  } catch (error) {
-    console.log(error);
-  }
-});
 
 const applyJ = z.object({
   jobId: z.string(),

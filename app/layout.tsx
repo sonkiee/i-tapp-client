@@ -1,8 +1,10 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { GlobalProvider } from "@/context/GlobalContext";
 import { AppProvider } from "@/components/providers/app-provider";
+import { ReactQueryProvider } from "@/provider/providers/react-query-provider";
 
 export const inter = Inter({
   weight: ["400", "600", "700"],
@@ -30,9 +32,11 @@ export default function RootLayout({
     // className={(inter.className, inter.variable, montserrat.variable)}
     <html lang="en">
       <body className={`${inter.variable} ${montserrat.variable} antialiased`}>
-        <GlobalProvider>
-          <AppProvider>{children}</AppProvider>
-        </GlobalProvider>
+        <ReactQueryProvider>
+          <GlobalProvider>
+            <AppProvider>{children}</AppProvider>
+          </GlobalProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );

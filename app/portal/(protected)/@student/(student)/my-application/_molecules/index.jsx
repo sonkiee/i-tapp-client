@@ -1,51 +1,45 @@
 "use client";
 
-import { React, useState, useEffect } from "react";
+import React from "react";
 import ApplicationTable from "./application-table";
 import { Wrapper } from "@/components/wrapper";
 import ApplicationSearch from "./application-search";
 import { SitePagination } from "@/components/ui/site-pagination";
-import { fetchApplication } from "@/api/actions/auth";
 import usePaginator from "@/lib/hooks/use-paginator";
+import { useFetchApplication } from "@/hooks/query";
 
 export default function MyApplication({ searchParams }) {
-  const [application, setApplication] = useState([]);
-
-  // const [company, setCompany] = useState([]);
-  // const [loading, setLoading] = useState(true); // For loading state
-  useEffect(() => {
-    const getApplications = async () => {
-      try {
-        const response = await fetchApplication(); // Replace with your actual fetch function
-        const fetchedData = response?.data;
-
-        const fetchedStudents = fetchedData.student || [];
-        setApplication(fetchedStudents);
-
-        // setCompanies(uniqueCompanies);
-      } catch (err) {
-        console.error("Error fetching applications:", err);
-      }
-    };
-
-    getApplications(); // Call the async function
-  }, []);
-
   const query = searchParams?.query || "";
-  const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
-    usePaginator(6, application);
 
-  console.log(application);
+  // Fetch applications with react-query
+  const {
+    data: applications = [],
+    isLoading,
+    isError,
+    error,
+  } = useFetchApplication();
+
+  const { setCurrentPage, postPerPage, currentPage, paginate } = usePaginator(
+    6,
+    applications
+  );
 
   return (
     <div>
-      <Wrapper className=" sm:pb-10">
+      <Wrapper className="sm:pb-10">
         <ApplicationSearch />
-        {applications.length !== 0 ? (
+
+        {isLoading ? (
+          <p>Loading applications...</p>
+        ) : isError ? (
+          <p className="text-red-500">
+            Failed to load: {error?.message || "Something went wrong"}
+          </p>
+        ) : applications.length > 0 ? (
           <>
-            <ApplicationTable query={query} applications={application} />
+            <ApplicationTable query={query} applications={applications} />
             <SitePagination
-              totalPosts={application.length}
+              totalPosts={applications.length}
               postsPerPage={postPerPage}
               paginate={paginate}
               currentPage={currentPage}

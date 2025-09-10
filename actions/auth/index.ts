@@ -2,6 +2,7 @@
 
 import { mutate } from "@/lib/api";
 import { actionClient } from "@/lib/safe-action";
+import { setCookie } from "@/lib/utils/cookies";
 import {
   fullCompanySignupSchema,
   signinSchema,
@@ -19,9 +20,9 @@ export const signinStudent = actionClient
 
     console.log(response?.data);
 
-    const { user, company, role } = response.data.data;
-
-    return { user, role, company };
+    const { user, company, role, accessToken } = response.data;
+    await setCookie("token", accessToken);
+    return { user, role, company, accessToken };
   });
 
 export const signinCompany = actionClient
@@ -33,7 +34,8 @@ export const signinCompany = actionClient
       password,
     });
 
-    const { accessToken, user, company, role } = response.data.data;
+    const { accessToken, user, company, role } = response.data;
+    await setCookie("token", accessToken);
 
     return { user, accessToken, role, company };
   });

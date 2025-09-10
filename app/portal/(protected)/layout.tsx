@@ -1,3 +1,4 @@
+import React from "react";
 import { CompanyLayoutUi } from "@/components/layouts/protected/company";
 import StudentLayout from "@/components/layouts/protected/student";
 import { headers } from "next/headers";
@@ -19,13 +20,12 @@ export default async function PortalLayout({
   const userRole = headerList.get("x-user-role")?.toLowerCase() as UserRole;
 
   return (
-    <StudentLayout>{student}</StudentLayout>
-    // <>
-    //   {userRole === "student" ? (
-    //     <StudentLayout>{student}</StudentLayout>
-    //   ) : (
-    //     <CompanyLayoutUi>{company}</CompanyLayoutUi>
-    //   )}
-    // </>
+    <>
+      {userRole === "student" ? (
+        <StudentLayout>{student}</StudentLayout>
+      ) : (
+        <CompanyLayoutUi>{company}</CompanyLayoutUi>
+      )}
+    </>
   );
 }

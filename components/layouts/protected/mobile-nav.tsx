@@ -8,7 +8,7 @@ import { useGlobal } from "@/context/GlobalContext";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { navLinks } from "./header";
-import { logout } from "@/api/actions/auth";
+// import { logout } from "@/actions/auth";
 
 export function MobileNav() {
   const [open, setOpen] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export function MobileNav() {
   const name = student.firstName + " " + student.lastName;
 
   const handleLogout = () => {
-    logout("");
+    // logout("");
     window.location.href = "/";
   };
 

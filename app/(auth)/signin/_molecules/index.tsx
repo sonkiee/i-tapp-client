@@ -18,13 +18,14 @@ import {
 } from "@/components/ui/form";
 import { signinSchema } from "@/lib/validations/auth";
 import { ButtonWithLoader } from "@/components/button-with-loader";
-import { signinStudent, signinCompany } from "@/api/actions/auth";
+
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useGlobal } from "@/context/GlobalContext";
+import { signinCompany, signinStudent } from "@/actions/auth";
 
 export function CompanySignIn() {
-  const { students, setStudents } = useGlobal();
+  const { setStudents } = useGlobal();
   const [activeTab, setActiveTab] = useState("student"); // State to manage active tab
   const router = useRouter();
 

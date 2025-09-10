@@ -1,6 +1,6 @@
 import StudentLayout from "@/components/layouts/protected/student";
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: ReactNode }) {
   return <StudentLayout>{children}</StudentLayout>;
 }

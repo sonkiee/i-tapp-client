@@ -1,3 +1,4 @@
+"use server";
 import { cookies } from "next/headers";
 import { isAbsoluteUrl } from "next/dist/shared/lib/utils";
 import { env } from "@/lib/utils/util";
@@ -20,6 +21,7 @@ axiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log("using token", token);
 
     if (config.data instanceof FormData) {
       config.headers["Content-Type"] = "multipart/form-data";
