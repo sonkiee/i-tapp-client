@@ -1,3 +1,4 @@
+import React from "react";
 import { Footer } from "./_molecules/footer";
 import { Header } from "./_molecules/header";
 

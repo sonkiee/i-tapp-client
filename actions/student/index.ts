@@ -14,7 +14,7 @@ export const apply = actionClient
     try {
       const response = await mutate("/student/job/apply", { jobId });
 
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error; // Ensure the error is propagated back to the frontend
@@ -28,7 +28,7 @@ export const save = actionClient
     try {
       const response = await mutate("/student/saved/applications", { jobId });
 
-      return response.data;
+      return response;
     } catch (error) {
       console.log(error);
       throw error; // Ensure the error is propagated back to the frontend

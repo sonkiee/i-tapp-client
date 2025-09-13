@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
@@ -16,11 +16,11 @@ import {
 } from "@/lib/validations/auth";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 import { useAction } from "next-safe-action/hooks";
-import { companySignup } from "@/api/actions/auth";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 import SignupSuccessModal from "./success";
-import { isDirty, isValid, z } from "zod";
+import { z } from "zod";
+import { companySignup } from "@/actions/auth";
 
 type CompanySignupSchema = z.infer<typeof companySignupSchema>;
 type FullFormData = z.infer<typeof fullCompanySignupSchema>;
@@ -167,7 +167,7 @@ export function CompanyInfo2({ formData }: CompanyInfo2Props) {
         /> */}
           <div className="m-auto my-2">
             <ButtonWithLoader
-              disabled={!isDirty || !isValid}
+              // disabled={!isDirty || !isValid}
               type="submit"
               isPending={isExecuting}
             >
@@ -175,7 +175,6 @@ export function CompanyInfo2({ formData }: CompanyInfo2Props) {
             </ButtonWithLoader>
           </div>
         </form>
-        <ToastContainer />
         {isSignupSuccess && <SignupSuccessModal />}
       </Form>
     </>

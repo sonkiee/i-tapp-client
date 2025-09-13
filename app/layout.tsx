@@ -2,9 +2,11 @@ import React from "react";
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { GlobalProvider } from "@/context/GlobalContext";
 import { AppProvider } from "@/components/providers/app-provider";
-import { ReactQueryProvider } from "@/provider/providers/react-query-provider";
+import { ReactQueryProvider } from "@/provider/react-query-provider";
+import { ToastContainer } from "react-toastify";
 
 export const inter = Inter({
   weight: ["400", "600", "700"],
@@ -37,6 +39,11 @@ export default function RootLayout({
             <AppProvider>{children}</AppProvider>
           </GlobalProvider>
         </ReactQueryProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar
+        />
       </body>
     </html>
   );

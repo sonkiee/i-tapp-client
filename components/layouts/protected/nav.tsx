@@ -1,17 +1,26 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
-import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-react";
+import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-reactjs";
 import { usePathname } from "next/navigation";
-import { useGlobal } from "@/context/GlobalContext";
 import { cn } from "@/lib/utils";
+import { useFetchCompanyJobs } from "@/hooks/query";
+import { useCompanyStore } from "@/lib/store/company";
 
 type Job = {
   id: string;
   title: string;
-  company: string;
-  location: string;
-  date: Date;
+  address: string;
+  city: string;
+  state: string;
+  createdDate: string;
+  updatedDate: string;
+  duration: number;
+  industry: string;
+  totalApplicants: number;
+  acceptedApplicants: number;
+  shortListedApplicants: number;
 };
 
 const sideNavLinks: {
@@ -50,12 +59,16 @@ const sideNavLinks: {
 };
 
 export function Nav() {
-  const { companyJobs, setSelectedJob } = useGlobal();
+  const selectedJob = useCompanyStore((state) => state.selectedJob);
+  const setSelectedJob = useCompanyStore((state) => state.setSelectedJob);
   const pathname = usePathname();
   const parentRoute = pathname.split("/")[2];
 
+  const { data } = useFetchCompanyJobs(); // API data
+  const jobs: Job[] = data?.data || []; // ✅ extract correctly
+
   const handleJobClick = (job: Job) => {
-    setSelectedJob(job); // Set the job details in context
+    setSelectedJob(job); // put job in global context
   };
 
   return (
@@ -67,7 +80,7 @@ export function Nav() {
               key={index}
               className={cn(
                 "text-[#282828] text-opacity-70 pl-5 w-[270px] pr-8 py-3 font-bold flex gap-6 text-base items-center",
-                pathname == link.href &&
+                pathname === link.href &&
                   "text-primary bg-secondary border-l-4 border-primary text-opacity-100"
               )}
             >
@@ -78,23 +91,18 @@ export function Nav() {
           {/* Space Section */}
           {parentRoute === "space" && (
             <>
-              {/* Conditionally render based on whether there are jobs */}
-              {companyJobs?.length ? (
+              {jobs.length ? (
                 <>
-                  {/* Render each job as an "Edit Space" link */}
-                  {companyJobs.map((job: Job, index: number) => (
+                  {jobs.map((job) => (
                     <li
-                      key={index}
+                      key={job.id}
                       className={cn(
                         "text-[#282828] text-opacity-70 pl-5 w-[270px] pr-8 py-3 font-bold flex gap-6 text-base items-center",
-                        pathname == `/portal/space/${job.id}` &&
+                        pathname === `/portal/space/${job.id}` &&
                           "text-primary bg-secondary border-l-4 border-primary text-opacity-100"
                       )}
                     >
-                      <BoxAdd />{" "}
-                      {/* <Link href={`/portal/space/${job.id}`}>
-                        Edit {job.title}
-                      </Link> */}
+                      <BoxAdd />
                       <Link
                         href={`/portal/space/${job.id}`}
                         onClick={() => handleJobClick(job)}
@@ -103,30 +111,30 @@ export function Nav() {
                       </Link>
                     </li>
                   ))}
-                  {/* "Add new Space" link if jobs exist */}
+
+                  {/* Add new space link */}
                   <li
                     className={cn(
                       "text-[#282828] text-opacity-70 pl-5 w-[270px] pr-8 py-3 font-bold flex gap-6 text-base items-center",
-                      pathname == "/portal/space/add-new-space" &&
+                      pathname === "/portal/space/add-new-space" &&
                         "text-primary bg-secondary border-l-4 border-primary text-opacity-100"
                     )}
                   >
-                    <AddCircle />{" "}
+                    <AddCircle />
                     <Link href="/portal/space/add-new-space">
                       Add new Space
                     </Link>
                   </li>
                 </>
               ) : (
-                /* Render "Create Space" if no jobs exist */
                 <li
                   className={cn(
                     "text-[#282828] text-opacity-70 pl-5 w-[270px] pr-8 py-3 font-bold flex gap-6 text-base items-center",
-                    pathname == "/portal/space/create-space" &&
+                    pathname === "/portal/space/create-space" &&
                       "text-primary bg-secondary border-l-4 border-primary text-opacity-100"
                   )}
                 >
-                  <AddCircle />{" "}
+                  <AddCircle />
                   <Link href="/portal/space/create-space">Create Space</Link>
                 </li>
               )}

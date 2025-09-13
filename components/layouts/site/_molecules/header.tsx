@@ -1,5 +1,5 @@
+import React from "react";
 import Link from "next/link";
-
 import { app } from "@/config/app";
 import { Logo } from "@/components/logo";
 import { Wrapper } from "@/components/wrapper";

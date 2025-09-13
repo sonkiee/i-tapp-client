@@ -1,8 +1,8 @@
 "use server";
 import { cookies } from "next/headers";
 import { isAbsoluteUrl } from "next/dist/shared/lib/utils";
-import { env } from "@/lib/utils/util";
 import axios, { AxiosInstance } from "axios";
+import { env } from "@/utils";
 
 const API_BASE_URL = env().backendApiUrl;
 
@@ -17,7 +17,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config) => {
-    const token = (await cookies()).get("token")?.value;
+    const token = (await cookies()).get("session-token")?.value;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

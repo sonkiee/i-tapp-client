@@ -5,7 +5,7 @@ import ApplicationTable from "./application-table";
 import { Wrapper } from "@/components/wrapper";
 import ApplicationSearch from "./application-search";
 import { SitePagination } from "@/components/ui/site-pagination";
-import usePaginator from "@/lib/hooks/use-paginator";
+import usePaginator from "@/hooks/use-paginator";
 import { useFetchSavedApplication } from "@/hooks/query";
 
 export default function SavedApplication({ searchParams }) {

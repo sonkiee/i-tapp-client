@@ -2,15 +2,15 @@
 
 import { mutate } from "@/lib/api";
 import { actionClient } from "@/lib/safe-action";
-import { setCookie } from "@/lib/utils/cookies";
+
 import {
   fullCompanySignupSchema,
   signinSchema,
   signupSchema,
 } from "@/lib/validations/auth";
+import { clearAuthCookies, setAuthCookies } from "@/utils/cookies";
 
 export const signinStudent = actionClient
-
   .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     const response = await mutate("/auth/login", {
@@ -21,12 +21,11 @@ export const signinStudent = actionClient
     console.log(response?.data);
 
     const { user, company, role, accessToken } = response.data;
-    await setCookie("token", accessToken);
+    await setAuthCookies(accessToken, user.role);
     return { user, role, company, accessToken };
   });
 
 export const signinCompany = actionClient
-
   .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     const response = await mutate("/company/login", {
@@ -34,14 +33,18 @@ export const signinCompany = actionClient
       password,
     });
 
-    const { accessToken, user, company, role } = response.data;
-    await setCookie("token", accessToken);
+    console.log(response?.data);
 
+    const { accessToken, user, company, role } = response.data;
+    await setAuthCookies(accessToken, company.role);
     return { user, accessToken, role, company };
   });
 
-export const studentSignup = actionClient
+export const logout = async () => {
+  await clearAuthCookies();
+};
 
+export const studentSignup = actionClient
   .inputSchema(signupSchema)
   .action(
     async ({

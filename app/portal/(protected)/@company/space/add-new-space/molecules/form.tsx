@@ -24,15 +24,27 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-// import { createSpace } from "@/api/actions/auth";
 import { createSpaceSchema } from "@/lib/validations/auth";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { createSpace } from "@/actions/company";
+import { toast } from "react-toastify";
 
 export function AddSpaceForm() {
-  const form = useForm<z.infer<typeof createSpaceSchema>>({
-    resolver: zodResolver(createSpaceSchema),
+  const jobSchema = z.object({
+    id: z.string().optional(),
+    title: z.string(),
+    industry: z.string(),
+    level: z.string(),
+    state: z.string(),
+    city: z.string(),
+    address: z.string(),
+    description: z.string(),
+    duration: z.number(),
+  });
+
+  type JobFormValues = z.infer<typeof jobSchema>;
+
+  const form = useForm<JobFormValues>({
+    resolver: zodResolver(jobSchema),
     defaultValues: {
       title: "",
       industry: "",
@@ -41,66 +53,38 @@ export function AddSpaceForm() {
       city: "",
       address: "",
       description: "",
-      duration: 3,
-      // showAvailability: false,
+      duration: 0,
     },
   });
 
   const { execute, isExecuting, result, hasErrored } = useAction(createSpace, {
-    onSuccess(data) {
+    onSuccess() {
       toast.success("IT Space created successfully!");
       form.reset();
     },
     onError(error) {
       console.error("Error creating space", error);
-      toast.error("Failed to create IT Space. Please try again.");
+      toast.error(error?.error?.serverError || "Failed to create IT Space.");
     },
   });
 
-  // function onSubmit(values: z.infer<typeof formSchema>) {
-  //   execute(values);
-  // }
+  const onSubmit = (values: z.infer<typeof createSpaceSchema>) => {
+    execute(values);
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-10 flex items-center justify-between">
         <h1 className="text-2xl font-bold">Create IT Space</h1>
         {hasErrored && (
-          <span className="text-danger font-semi-bold ">
-            {result.serverError?.message}
+          <span className="text-red-600 font-semibold">
+            {result.serverError}
           </span>
         )}
-        {/* <FormField
-          control={form.control}
-          name="showAvailability"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-              <div className="space-y-0.5">
-                <FormLabel>Show Availability</FormLabel>
-                <FormDescription>
-                  Display your availability on your space profile
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        /> */}
       </div>
 
       <Form {...form}>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            execute(form.getValues());
-          }}
-          className="space-y-8"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <FormField
               control={form.control}
@@ -109,7 +93,7 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>Title</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Enter IT space title" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -123,7 +107,10 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>Level</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input
+                      placeholder="e.g., Beginner, Intermediate"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -137,8 +124,8 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>IT Duration</FormLabel>
                   <Select
-                    onValueChange={field.onChange}
-                    // defaultValue={field.value}
+                    onValueChange={(val) => field.onChange(Number(val))}
+                    defaultValue={String(field.value)}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -146,7 +133,7 @@ export function AddSpaceForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="3">1 -3 months</SelectItem>
+                      <SelectItem value="3">1 - 3 months</SelectItem>
                       <SelectItem value="6">3 - 6 months</SelectItem>
                       <SelectItem value="12">6 - 12 months</SelectItem>
                     </SelectContent>
@@ -155,6 +142,7 @@ export function AddSpaceForm() {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="industry"
@@ -162,12 +150,13 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>Industry</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="e.g., Tech, Finance" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="city"
@@ -175,12 +164,13 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Enter city" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="state"
@@ -188,12 +178,13 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>State</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Enter state" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="address"
@@ -201,13 +192,14 @@ export function AddSpaceForm() {
                 <FormItem>
                   <FormLabel>Address</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input placeholder="Enter address" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
+
           <FormField
             control={form.control}
             name="description"
@@ -226,7 +218,7 @@ export function AddSpaceForm() {
             )}
           />
 
-          <div className="xxs:text-start space-x-2">
+          <div className="flex space-x-3">
             <Button
               type="submit"
               size="sm"
@@ -235,19 +227,18 @@ export function AddSpaceForm() {
             >
               {isExecuting ? "Creating space..." : "Create Space"}
             </Button>
-            <button
+            <Button
               type="button"
+              variant="outline"
               onClick={() => form.reset()}
               disabled={isExecuting}
-              className="p-3"
+              size="sm"
             >
               Clear
-            </button>
+            </Button>
           </div>
         </form>
       </Form>
-
-      <ToastContainer />
     </div>
   );
 }

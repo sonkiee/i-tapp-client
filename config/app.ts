@@ -1,5 +1,3 @@
-const { env } = require("@/lib/utils");
-
 export const app = {
   // name: env("app_name", "ITAPP"),
   name: "ITAPP",

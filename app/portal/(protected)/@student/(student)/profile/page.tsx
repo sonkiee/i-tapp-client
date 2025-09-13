@@ -1,6 +1,6 @@
 import React from "react";
-import ProfileForm from "./molecules/profile-form";
+import ProfilePage from "./molecules/profile-page";
 
 export default function page() {
-  return <ProfileForm />;
+  return <ProfilePage />;
 }

@@ -1,35 +1,40 @@
 "use client";
-
-import usePaginator from "@/lib/hooks/use-paginator";
+import React from "react";
+import usePaginator from "@/hooks/use-paginator";
 import { SitePagination } from "@/components/ui/site-pagination";
 import { ApplicantCard } from "@/components/applicant-card";
-
-import { useGlobal } from "@/context/GlobalContext";
 import { Applicant } from "@/types";
+import { useFetchAllCompanyApplications } from "@/hooks/query";
 
 export function AcceptedApplicants() {
-  const { selectedApplicant, setSelectedApplicant, acceptedApplicants } =
-    useGlobal();
+  const { data, isLoading } = useFetchAllCompanyApplications();
 
-  const applicants: Applicant[] = Array.from({ length: 10 });
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
 
+  // ✅ Correctly extract from API response
+  const acceptedApplicants = data?.data?.acceptedApplicants || [[], 0];
+  const acceptedList: Applicant[] = acceptedApplicants[0]; // array of applicants
+  const acceptedCount: number = acceptedApplicants[1]; // total count
+
+  // ✅ Pass only the list into paginator
   const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
-    usePaginator(6, acceptedApplicants);
+    usePaginator(6, acceptedList);
 
-  console.log(acceptedApplicants);
   return (
     <div>
       <p className="mb-4">Accepted Applicants</p>
-      {acceptedApplicants?.[0]
-        ?.slice(0, 5)
-        .map((applicant: Applicant, index: number) => (
-          <ApplicantCard
-            key={index}
-            applicant={{ ...applicant, accepted: true }}
-          />
-        ))}
+
+      {applications?.map((applicant: Applicant, index: number) => (
+        <ApplicantCard
+          key={index}
+          applicant={{ ...applicant, accepted: true }}
+        />
+      ))}
+
       <SitePagination
-        totalPosts={acceptedApplicants.length}
+        totalPosts={acceptedCount}
         postsPerPage={postPerPage}
         paginate={paginate}
         currentPage={currentPage}

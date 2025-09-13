@@ -1,7 +1,7 @@
 import React from "react";
+import { headers } from "next/headers";
 import { CompanyLayoutUi } from "@/components/layouts/protected/company";
 import StudentLayout from "@/components/layouts/protected/student";
-import { headers } from "next/headers";
 
 type UserRole = "company" | "student";
 
@@ -15,17 +15,26 @@ export default async function PortalLayout({
   company,
   student,
 }: PortalLayoutProps) {
-  const headerList = await headers();
+  const headersList = await headers();
+  const role = headersList.get("x-user-role")?.toLowerCase() as UserRole | null;
 
-  const userRole = headerList.get("x-user-role")?.toLowerCase() as UserRole;
+  if (role === "student") {
+    return <StudentLayout>{student}</StudentLayout>;
+  }
 
+  if (role === "company") {
+    return <CompanyLayoutUi>{company}</CompanyLayoutUi>;
+  }
+
+  // fallback if role missing or invalid
   return (
-    <>
-      {userRole === "student" ? (
-        <StudentLayout>{student}</StudentLayout>
-      ) : (
-        <CompanyLayoutUi>{company}</CompanyLayoutUi>
-      )}
-    </>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold mb-4">Unauthorized</h1>
+        <p className="text-muted-foreground">
+          Please sign in to access this area.
+        </p>
+      </div>
+    </div>
   );
 }

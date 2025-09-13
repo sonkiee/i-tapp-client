@@ -1,4 +1,4 @@
-import { Happyemoji, Sms } from "iconsax-react";
+import { Happyemoji, Sms } from "iconsax-reactjs";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

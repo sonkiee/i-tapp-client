@@ -1,92 +1,81 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-// Other imports
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Upload } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import { toast } from "react-toastify";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Form,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  FormControl,
+} from "@/components/ui/form";
+
 import { useGlobal } from "@/context/GlobalContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// import { logout } from "@/api/actions/auth";
-import Image from "next/image";
+import { logout } from "@/actions/auth";
 
-// const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
-// Form schema
 const profileSchema = z.object({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().optional(),
+  firstName: z.string().min(1, "Required").optional(),
+  lastName: z.string().min(1, "Required").optional(),
+  email: z.string().email("Invalid email").optional(),
   phoneNumber: z.string().optional(),
-  bio: z.string().optional().optional(),
-  profileImage: z.instanceof(File).optional(),
-  documents: z.instanceof(File).optional(),
-  goals: z.string(z.string()).optional(),
-  softSkills: z.string(z.string()).optional(),
-  technicalSkills: z.string(z.string()).optional(),
+  bio: z.string().optional(),
+  goals: z.string().optional(),
+  softSkills: z.string().optional(),
+  technicalSkills: z.string().optional(),
   preferredIndustry: z.string().optional(),
+  profileImage: z.any().optional(),
+  documents: z.any().optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
 
 export default function ProfileForm() {
   const { updateStudentProfile, student } = useGlobal();
-
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [documents, setDocuments] = useState<File | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ProfileFormData>({
+  const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      bio: "",
+      goals: "",
+      softSkills: "",
+      technicalSkills: "",
+      preferredIndustry: "",
+    },
   });
 
   const { execute: updateProfileAction, status } = useAction(
     updateStudentProfile,
     {
-      onSuccess(data) {
+      onSuccess() {
         toast.success("Profile updated successfully!");
       },
-      onError(error) {
-        console.error("Failed to update profile", error);
-        toast.error("Failed to update profile: ");
+      onError(err) {
+        console.error("Failed to update profile", err);
+        toast.error("Profile update failed");
       },
     }
   );
-  const handleLogout = () => {
-    // logout("");
-    window.location.href = "/";
-  };
-
-  const onSubmit = (data: ProfileFormData) => {
-    const prev = data;
-
-    const payload = { ...prev, ...data, profileImage, documents };
-
-    updateProfileAction(payload);
-  };
-
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<File | null>>
-  ) => {
-    if (event.target.files && event.target.files[0]) {
-      setter(event.target.files[0]);
-    }
-  };
 
   useEffect(() => {
     if (student) {
-      reset({
+      form.reset({
         firstName: student.firstName || "",
         lastName: student.lastName || "",
         email: student.email || "",
@@ -94,305 +83,266 @@ export default function ProfileForm() {
         bio: student.bio || "",
         goals: student.goals || "",
         softSkills: student.softSkills || "",
-        technicalSkills: student.technicalSkills,
-        preferredIndustry: student.preferredIndustry,
+        technicalSkills: student.technicalSkills || "",
+        preferredIndustry: student.preferredIndustry || "",
       });
     }
-  }, [reset, student]);
+  }, [student, form]);
+
+  const handleFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setter: React.Dispatch<React.SetStateAction<File | null>>
+  ) => {
+    if (e.target.files?.[0]) setter(e.target.files[0]);
+  };
+
+  const onSubmit = (data: ProfileFormData) => {
+    const payload = { ...data, profileImage, documents };
+    updateProfileAction(payload);
+  };
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = "/";
+  };
 
   return (
-    <>
-      <div className="mb-8"></div>
-      <div className="max-w-5xl mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          <div className="flex items-center mb-8">
-            <label className="flex flex-col items-center cursor-pointer">
-              <div className="w-[80px] h-[70px] border-2 border-dashed border-gray-300 rounded-lg p-2 text-center flex flex-col justify-center">
-                {profileImage ? (
-                  <Image
-                    src={URL.createObjectURL(profileImage)}
-                    alt="Profile"
-                    width={80}
-                    height={70}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <Upload className="mx-auto mb-1" size={16} />
-                    <p className="text-xs">Photo</p>
-                  </div>
-                )}
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => handleFileChange(e, setProfileImage)}
-                  className="hidden"
+    // <div className="max-w-5xl mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        {/* Profile Image Upload */}
+        <div className="flex items-center">
+          <label className="cursor-pointer">
+            <div className="w-[80px] h-[70px] border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden">
+              {profileImage ? (
+                <Image
+                  src={URL.createObjectURL(profileImage)}
+                  alt="Profile"
+                  width={80}
+                  height={70}
+                  className="object-cover rounded-full"
                 />
-              </div>
+              ) : (
+                <div className="flex flex-col items-center">
+                  <Upload size={16} />
+                  <span className="text-xs">Photo</span>
+                </div>
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleFileChange(e, setProfileImage)}
+              className="hidden"
+            />
+          </label>
+        </div>
+
+        {/* Basic Info */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your first name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter your last name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input disabled type="email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="Enter phone number" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        {/* Skills + Goals */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
+            name="softSkills"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Soft Skills</FormLabel>
+                <FormControl>
+                  <Input placeholder="E.g communication, teamwork" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="technicalSkills"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Technical Skills</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="E.g JavaScript, React, Node.js"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="preferredIndustry"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Preferred Industry</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="E.g healthcare, IT, education"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="goals"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Goals</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="E.g contribute to open-source projects"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        {/* Bio + Documents */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <FormField
+            control={form.control}
+            name="bio"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Bio & Work Experience</FormLabel>
+                <FormControl>
+                  <Textarea
+                    rows={5}
+                    placeholder="Tell us something about yourself"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <div className="border-2 border-dashed rounded-md p-4">
+            <h3 className="text-sm font-medium mb-2">Upload IT Letter</h3>
+            <label className="flex flex-col items-center justify-center w-full h-40 border border-gray-300 border-dashed rounded-md cursor-pointer">
+              {documents ? (
+                <p>{documents.name}</p>
+              ) : (
+                <>
+                  <Upload size={24} />
+                  <p className="text-gray-500 text-sm">Upload</p>
+                </>
+              )}
+              <input
+                type="file"
+                accept=".jpg,.jpeg,.png,.pdf"
+                onChange={(e) => handleFileChange(e, setDocuments)}
+                className="hidden"
+              />
             </label>
-            {errors.profileImage && (
-              <p className="text-red-500 text-sm mt-1 ml-4">
-                {errors.profileImage.message}
-              </p>
+
+            {student?.documentUrls?.length > 0 && (
+              <div className="mt-2 space-y-1">
+                <h4 className="text-sm font-medium">Your Documents:</h4>
+                {student.documentUrls.map((url: string, idx: number) => (
+                  <a
+                    key={idx}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline text-sm block"
+                  >
+                    View Document
+                  </a>
+                ))}
+              </div>
             )}
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <label
-                htmlFor="firstName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                First Name
-              </label>
-              <Input
-                id="firstName"
-                {...register("firstName")}
-                placeholder="Enter your first name"
-              />
-              {errors.firstName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.firstName.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="lastName"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Last Name
-              </label>
-              <Input
-                id="lastName"
-                {...register("lastName")}
-                placeholder="Enter your last name"
-              />
-              {errors.lastName && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.lastName.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <Input
-                contentEditable={false}
-                disabled
-                id="email"
-                {...register("email")}
-                type="email"
-                placeholder="Enter your email address"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="phoneNumber"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Phone Number
-              </label>
-              <Input
-                id="phoneNumber"
-                {...register("phoneNumber")}
-                type="tel"
-                placeholder="Enter your phone number"
-              />
-              {errors.phoneNumber && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.phoneNumber.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="softSkills"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Soft Skills
-              </label>
-              <Input
-                id="softSkills"
-                {...register("softSkills")}
-                type="text"
-                placeholder="Soft skills e.g communication, teamwork, leadership"
-              />
-              {errors.softSkills && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.softSkills.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="technicalSkills"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Technical Skills
-              </label>
-              <Input
-                id="technicalSkills"
-                {...register("technicalSkills")}
-                type="text"
-                placeholder="Technical skills e.g javaScript, react, node.js"
-              />
-              {errors.technicalSkills && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.technicalSkills.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <label
-                htmlFor="preferredIndustry"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Preferred Industry
-              </label>
-              <Input
-                id="preferredIndustry"
-                {...register("preferredIndustry")}
-                type="text"
-                placeholder="Preferred industry e.g., healthcare, IT, education, etc"
-              />
-              {errors.preferredIndustry && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.preferredIndustry.message}
-                </p>
-              )}
-            </div>{" "}
-            <div>
-              <label
-                htmlFor="goals"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Goals
-              </label>
-              <Input
-                id="goals"
-                {...register("goals")}
-                type="text"
-                placeholder="Goals e.g e. achieve a higher salary, improve my productivity, contribute to open-source projects"
-              />
-              {errors.goals && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.goals.message}
-                </p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div>
-              <label
-                htmlFor="bio"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Bio and work Experience
-              </label>
-              <Textarea
-                id="bio"
-                {...register("bio")}
-                placeholder="Tell us something about you, your goals etc."
-                rows={5}
-              />
-              {errors.bio && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.bio.message}
-                </p>
-              )}
-            </div>
-            <div>
-              <div className="border-2 border-gray-300 rounded-lg p-4">
-                <h3 className="text-sm font-medium text-gray-700 mb-2">
-                  Upload IT request letter
-                </h3>
-                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 my-5 border-dashed rounded-md cursor-pointer p-4">
-                  {documents ? (
-                    <p>{documents.name}</p>
-                  ) : (
-                    <>
-                      <Upload className="mx-auto mb-2" size={24} />
-                      <p className="text-sm text-gray-500 mb-2">Upload</p>
-                    </>
-                  )}
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.pdf"
-                    onChange={(e) => handleFileChange(e, setDocuments)}
-                    className="hidden"
-                  />
-                </label>
-
-                <div className=" overflow-scroll">
-                  <p className=" text-wrap">{student.profileImageUrl}</p>
-                  <p>{student.documentUrls}</p>
-                </div>
-
-                {student.documentUrls && student.documentUrls.length > 0 && (
-                  <div>
-                    <h4 className="text-sm font-medium text-gray-700 mb-2">
-                      Your Uploaded Documents:
-                    </h4>
-                    {student.documentUrls.map((url: string, index: number) => (
-                      <a
-                        key={index}
-                        href={url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-500 underline block"
-                      >
-                        View IT Letter
-                      </a>
-                    ))}
-                  </div>
-                )}
-
-                {errors.documents && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.documents.message}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="xxs:text-start space-x-2 flex justify-between">
-            <div>
-              <Button
-                type="submit"
-                size="sm"
-                disabled={status === "executing"}
-                className="mx-auto"
-              >
-                {status === "executing" ? "Updating..." : "Update Profile"}
-              </Button>
-              <button type="button" className="p-3" onClick={() => reset()}>
-                Reset
-              </button>
-            </div>
+        {/* Actions */}
+        <div className="flex justify-between items-center">
+          <div className="space-x-2">
+            <Button type="submit" disabled={status === "executing"} size="sm">
+              {status === "executing" ? "Updating..." : "Update Profile"}
+            </Button>
             <Button
+              type="button"
+              variant="secondary"
               size="sm"
-              className="hidden md:block"
-              onClick={handleLogout}
-              type="submit"
+              onClick={() => form.reset()}
             >
-              Logout
+              Reset
             </Button>
           </div>
-        </form>
-        <ToastContainer />
-      </div>
-    </>
+          <Button
+            type="button" // 👈 make sure it's not "submit"
+            size="sm"
+            variant="destructive"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
+      </form>
+    </Form>
+    // </div>
   );
 }

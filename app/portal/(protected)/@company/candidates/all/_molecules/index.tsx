@@ -35,7 +35,7 @@
 
 "use client";
 
-import usePaginator from "@/lib/hooks/use-paginator";
+import usePaginator from "@/hooks/use-paginator";
 import { SitePagination } from "@/components/ui/site-pagination";
 import { ApplicantCard } from "@/components/applicant-card";
 

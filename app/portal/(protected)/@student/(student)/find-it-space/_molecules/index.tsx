@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FilterCompanies from "./filter";
 import { Wrapper } from "@/components/wrapper";
 import Results from "./results";
 import { filters } from "@/config/student";
-import { Filter } from "iconsax-react";
+import { Filter } from "iconsax-reactjs";
 import AvailableCompanyDetails from "./available-company-details";
-import { cn } from "@/lib/utils/tailwind";
+import { cn } from "@/utils/tailwind";
 import Modal from "@/components/ui/modal";
 import ApplicationForm from "./form";
-import { useGlobal } from "@/context/GlobalContext";
 import { useFetchJobs } from "@/hooks/query";
 
 export default function FindITSpace({ searchParams }) {
@@ -19,26 +18,12 @@ export default function FindITSpace({ searchParams }) {
   const [filterActive, setFilterActive] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  const { setStudent, student } = useGlobal();
-
   // ✅ fetch jobs via TanStack Query
   const { data: jobs, isLoading, error } = useFetchJobs();
 
   // Flatten + normalize the jobs list
   const companyList = jobs?.data?.flat() || [];
   const companyDetail = companyList.find((company) => company.id === companyId);
-
-  // ✅ Load student from localStorage once
-  useEffect(() => {
-    try {
-      const storedStudent = localStorage.getItem("user");
-      if (storedStudent) {
-        setStudent(JSON.parse(storedStudent));
-      }
-    } catch (err) {
-      console.error("Error parsing student data from localStorage:", err);
-    }
-  }, [setStudent]);
 
   if (isLoading) {
     return <p className="text-center">Loading jobs...</p>;

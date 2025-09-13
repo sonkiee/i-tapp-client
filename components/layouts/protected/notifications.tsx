@@ -8,7 +8,7 @@ export default function Notification() {
         <p className=" text-base font-bold mb-3">Most recent</p>
         <div>
           <div className="flex flex-col gap-2">
-            <p>You've just been accepted by Chenotech Nigeria Limited</p>
+            <p>You&apos;ve just been accepted by Chenotech Nigeria Limited</p>
             <p className="text-primary font-bold">8:51 AM</p>
           </div>
         </div>
@@ -18,7 +18,7 @@ export default function Notification() {
         <p className=" text-base font-bold  mb-3">Earlier</p>
         <div>
           <div className="flex flex-col gap-2">
-            <p>You've just been accepted by Chenotech Nigeria Limited</p>
+            <p>You&apos;ve just been accepted by Chenotech Nigeria Limited</p>
             <p className="text-primary font-bold">8:51 AM</p>
           </div>
         </div>

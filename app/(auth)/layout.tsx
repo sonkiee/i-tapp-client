@@ -1,3 +1,4 @@
+import React from "react";
 import AuthLayoutUi from "@/components/layouts/auth";
 
 export default function AuthLayout({

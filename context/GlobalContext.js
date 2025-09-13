@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from "react";
-import axiosInstance from "@/lib/axiosInstance";
+import { mutate } from "@/lib/api";
 
 const GlobalContext = createContext();
 
@@ -39,7 +39,7 @@ export const GlobalProvider = ({ children }) => {
           formData.append("backgroundImage", data.backgroundImage);
         }
 
-        const response = await axiosInstance.post(`/company/profile`, formData);
+        const response = await mutate(`/company/profile`, formData);
         localStorage.setItem("company", JSON.stringify(company));
 
         return response.data;
@@ -76,7 +76,7 @@ export const GlobalProvider = ({ children }) => {
         formData.append("documents", data.documents);
       }
 
-      const response = await axiosInstance.post(`/student/profile`, formData);
+      const response = await mutate(`/student/profile`, formData);
 
       return response.data;
     } catch (error) {
@@ -87,31 +87,8 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        user,
-        company,
-        loading,
-        setTotalApplicants,
-        setAcceptedApplicants,
-        setShortlistedApplicants,
-        setSelectedApplicant,
-        selectedApplicant,
-        setUser,
-        setCompany,
-        companyJobs,
-        setCompanyJobs,
-        totalApplicants,
-        acceptedApplicants,
-        shortlistedApplicants,
         updateCompanyProfile,
         updateStudentProfile,
-        savedApplications,
-        setSavedApplications,
-        students,
-        setStudents,
-        student,
-        setStudent,
-        selectedJob,
-        setSelectedJob,
       }}
     >
       {children}

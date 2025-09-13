@@ -40,3 +40,23 @@ export const useFetchAcceptedApplications = () => {
     },
   });
 };
+
+export const useFetchAllCompanyApplications = () => {
+  return useQuery({
+    queryKey: ["company-application"],
+    queryFn: async () => {
+      const response = await query("/company/all/category");
+      return response;
+    },
+  });
+};
+
+export const useFetchCompanyJobs = () => {
+  return useQuery({
+    queryKey: ["company-jobs"],
+    queryFn: async () => {
+      const response = await query("/company/jobs/all");
+      return response;
+    },
+  });
+};

@@ -1,5 +1,5 @@
 import React from "react";
-import { CloseCircle } from "iconsax-react";
+import { CloseCircle } from "iconsax-reactjs";
 
 export default function Modal({ children, showModal, setShowModal }) {
   if (showModal)

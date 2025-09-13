@@ -1,9 +1,10 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Notification } from "iconsax-react";
+import { Notification } from "iconsax-reactjs";
 
 import {
   Tooltip,
@@ -78,14 +79,14 @@ export function Header() {
                     size={24}
                     className=" border border-[#C9C9DA] rounded-full p-2"
                   />
-                  You've just been accepted by Chenotech Nigeria Limited
+                  You&apos;ve just been accepted by Chenotech Nigeria Limited
                 </p>
                 <p className="px-6 py-5 border-b border-black flex items-center gap-2">
                   <Notification
                     size={24}
                     className=" border border-[#C9C9DA] rounded-full p-2"
                   />
-                  You've just been accepted by Chenotech Nigeria Limited
+                  You&apos;ve just been accepted by Chenotech Nigeria Limited
                 </p>
                 <Link href="/portal/notifications">
                   <p className="px-10 py-2">See all notifications</p>

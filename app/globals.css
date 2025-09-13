@@ -1,24 +1,16 @@
 /* globals.css */
 /** biome-ignore-all lint/suspicious/noUnknownAtRules: <explanation> */
 
-@import "./base/_index.css";
+@import "../styles/base/_index.css";
 @import "tailwindcss";
 @plugin "tailwindcss-animate";
 
 /* @import "./base/_index.css"; */
 
-/* Theme tokens */
-@theme {
-  /* Breakpoints (screens) */
-  --breakpoint-xxs: 375px;
-  --breakpoint-xs: 425px;
-  --breakpoint-sm: 768px;
-  --breakpoint-md: 960px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-touch: 1200px;
-  --breakpoint-xl: 1440px;
+@import "tailwindcss";
 
-  /* Colors */
+@theme {
+  /* Custom Colors */
   --color-primary: #477dc0;
   --color-secondary: #cedcee;
   --color-info: #2f80ed;
@@ -35,50 +27,116 @@
   --color-tertiary-1: #80a4d3;
   --color-tertiary-2: #a6bfe0;
 
-  /* Fonts */
+  /* Font Families */
   --font-inter: var(--font-inter);
   --font-montserrat: var(--font-montserrat);
 
-  /* Font weights */
+  /* Font Weights */
   --font-weight-regular: 400;
   --font-weight-semi-bold: 600;
   --font-weight-bold: 700;
 
-  /* Font sizes (simplified — exact lineHeight/fontWeight needs tokens) */
-  --text-h1: 3.5rem;
-  --text-h2: 3rem;
-  --text-h3: 2.5rem;
-  --text-h4: 2rem;
-  --text-h5: 1.5rem;
-  --text-h6: 1.25rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-md: 1.125rem;
-  --text-lg: 1.25rem;
+  /* Custom Breakpoints */
+  --breakpoint-xxs: 375px;
+  --breakpoint-xs: 425px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 960px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-touch: 1200px;
+  --breakpoint-xl: 1440px;
+
+  /* Typography Scale */
+  --font-size-h1: 3.5rem;
+  --line-height-h1: 3.85rem;
+  --font-size-h2: 3rem;
+  --line-height-h2: 3.3rem;
+  --font-size-h3: 2.5rem;
+  --line-height-h3: 2.75rem;
+  --font-size-h4: 2rem;
+  --line-height-h4: 2.2rem;
+  --font-size-h5: 1.5rem;
+  --line-height-h5: 1.65rem;
+  --font-size-h6: 1.25rem;
+  --line-height-h6: 1.375rem;
+  --font-size-sm: 0.875rem;
+  --line-height-sm: 1.225rem;
+  --font-size-base: 1rem;
+  --line-height-base: 1.4rem;
+  --font-size-md: 1.125rem;
+  --line-height-md: 1.575rem;
+  --font-size-lg: 1.25rem;
+  --line-height-lg: 1.75rem;
+
+  /* Container Settings */
+  --container-padding: 2rem;
+  --container-padding-sm: 2rem;
+  --container-padding-lg: 3rem;
+  --container-padding-xl: 6rem;
+  --container-padding-2xl: 8rem;
 }
 
-/* Custom utilities / animations */
-@keyframes accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
+/* Custom Typography Classes */
+.text-h1 {
+  font-size: var(--font-size-h1);
+  line-height: var(--line-height-h1);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h2 {
+  font-size: var(--font-size-h2);
+  line-height: var(--line-height-h2);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h3 {
+  font-size: var(--font-size-h3);
+  line-height: var(--line-height-h3);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h4 {
+  font-size: var(--font-size-h4);
+  line-height: var(--line-height-h4);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h5 {
+  font-size: var(--font-size-h5);
+  line-height: var(--line-height-h5);
+  font-weight: var(--font-weight-bold);
+}
+
+.text-h6 {
+  font-size: var(--font-size-h6);
+  line-height: var(--line-height-h6);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Container with custom padding */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-left: var(--container-padding-sm);
+    padding-right: var(--container-padding-sm);
   }
 }
 
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
+@media (min-width: 1024px) {
+  .container {
+    padding-left: var(--container-padding-lg);
+    padding-right: var(--container-padding-lg);
   }
 }
 
-@utility accordion-down {
-  animation: accordion-down 0.2s ease-out;
-}
-@utility accordion-up {
-  animation: accordion-up 0.2s ease-out;
+@media (min-width: 1440px) {
+  .container {
+    padding-left: var(--container-padding-xl);
+    padding-right: var(--container-padding-xl);
+  }
 }

@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Notification } from "iconsax-react";
+import { Notification } from "iconsax-reactjs";
 
 import {
   Tooltip,
@@ -14,10 +14,10 @@ import {
 } from "@/components/ui/tooltip";
 import { Logo } from "@/components/logo";
 import { Wrapper } from "@/components/wrapper";
-import { MobileNav } from "./mobile-nav";
 import { CompanyMobileNav } from "./company-mobile-nav";
-import { useGlobal } from "@/context/GlobalContext";
 import { cn } from "@/lib/utils";
+import { logout } from "@/actions/auth";
+import { useCompanyStore } from "@/lib/store/company";
 
 export const navLinks: { text: string; href: string }[] = [
   {
@@ -36,14 +36,16 @@ export const navLinks: { text: string; href: string }[] = [
 
 export function CompanyHeader() {
   const pathname = usePathname();
-  const { company } = useGlobal();
+
+  const company = useCompanyStore((c) => c.company);
 
   const parentRoute = pathname.split("/")[2];
 
   return (
     <header className="w-full fixed px-4 top-0 bg-white border-b z-10 border-grey-5">
       <Wrapper className="flex items-center h-16 justify-between py-6! md:px-0 touch:px-0">
-        <Link href="/portal/overview/dashboard">
+        {/* <Link href="/portal/overview/dashboard"> */}
+        <Link href={"/#"} onClick={async () => await logout()}>
           <Logo />
         </Link>
         {/* Navigation Links */}
@@ -77,14 +79,14 @@ export function CompanyHeader() {
                     size={24}
                     className=" border border-[#C9C9DA] rounded-full p-2"
                   />
-                  You've just been accepted by Chenotech Nigeria Limited
+                  You&apos;ve just been accepted by Chenotech Nigeria Limited
                 </p>
                 <p className="px-6 py-5 border-b border-black flex items-center gap-2">
                   <Notification
                     size={24}
                     className=" border border-[#C9C9DA] rounded-full p-2"
                   />
-                  You've just been accepted by Chenotech Nigeria Limited
+                  You&apos;ve just been accepted by Chenotech Nigeria Limited
                 </p>
                 <Link href="/notifications">
                   <p className="px-10 py-2">See all notifications</p>

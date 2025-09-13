@@ -1,22 +1,17 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
-import {
-  ArchiveAdd,
-  ArrowLeft,
-  Call,
-  Location,
-  Note1,
-  Sms,
-} from "iconsax-react";
+import { ArrowLeft, Call, Location, Note1, Sms } from "iconsax-reactjs";
 import { useGlobal } from "@/context/GlobalContext";
 import { Button } from "@/components/ui/button";
-import { acceptApplication, declineApplication } from "@/api/actions/auth";
+// import { acceptApplication, declineApplication } from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
+
 import Link from "next/link";
 import moment from "moment";
+import { acceptApplication, declineApplication } from "@/actions/company";
 
 export default function CandidateProfile() {
   const { selectedApplicant } = useGlobal();
@@ -36,8 +31,8 @@ export default function CandidateProfile() {
       },
       onError: (error) => {
         const { serverError } = error?.error;
-        const errorMessage = serverError?.message || "An error occurred.";
-        console.log(serverError?.message);
+        const errorMessage = serverError || "An error occurred.";
+        console.log(serverError);
         toast.error(errorMessage);
       },
     }
@@ -51,8 +46,8 @@ export default function CandidateProfile() {
       },
       onError: (error) => {
         const { serverError } = error?.error;
-        const errorMessage = serverError?.message || "An error occurred.";
-        console.log(serverError?.message);
+        const errorMessage = serverError || "An error occurred.";
+        console.log(serverError);
         toast.error(errorMessage);
       },
     }
@@ -236,7 +231,6 @@ export default function CandidateProfile() {
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 }

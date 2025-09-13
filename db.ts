@@ -654,12 +654,657 @@ export const db = {
   ],
   schools: [
     {
+      name: "ABSU",
+      full_name: "Abia State University",
+    },
+    {
+      name: "ATBU",
+      full_name: "Abubakar Tafawa Balewa University",
+    },
+    {
+      name: "ACHIEVERS",
+      full_name: "Achievers University, Owo",
+    },
+    {
+      name: "ADSU",
+      full_name: "Adamawa State University",
+    },
+    {
+      name: "AAU",
+      full_name: "Adekunle Ajasin University",
+    },
+    {
+      name: "ADELEKE",
+      full_name: "Adeleke University",
+    },
+    {
+      name: "ADMIRALTY",
+      full_name: "Admiralty University of Nigeria",
+    },
+    {
+      name: "ABU ADO-EKITI",
+      full_name: "Afe Babalola University",
+    },
+    {
+      name: "AUST",
+      full_name: "African University of Science and Technology",
+    },
+    {
+      name: "ABU ZARIA",
+      full_name: "Ahmadu Bello University",
+    },
+    {
+      name: "AJAYI",
+      full_name: "Ajayi Crowther University",
+    },
+    {
+      name: "AKSU",
+      full_name: "Akwa Ibom State University",
+    },
+    {
+      name: "ALEX",
+      full_name: "Alex Ekwueme Federal University",
+    },
+    {
+      name: "AL-HIKMAH",
+      full_name: "Al-Hikmah University",
+    },
+    {
+      name: "AL-QALAM",
+      full_name: "Al-Qalam University, Katsina",
+    },
+    {
+      name: "AAU EKPOMA",
+      full_name: "Ambrose Alli University",
+    },
+    {
+      name: "AUN",
+      full_name: "American University of Nigeria",
+    },
+    {
+      name: "ANCHOR",
+      full_name: "Anchor University, Lagos",
+    },
+    {
+      name: "ARTHUR JARVIS",
+      full_name: "Arthur Jarvis University",
+    },
+    {
+      name: "ATIBA",
+      full_name: "Atiba University",
+    },
+    {
+      name: "AUGUSTINE",
+      full_name: "Augustine University",
+    },
+    {
+      name: "BABCOCK",
+      full_name: "Babcock University",
+    },
+    {
+      name: "BAMEDELE",
+      full_name:
+        "Bamidele Olumilua University of Education, Science and Technology, Ikere-Ekiti",
+    },
+    {
+      name: "BAUCHI",
+      full_name: "Bauchi State University",
+    },
+    {
+      name: "BUK",
+      full_name: "Bayero University Kano",
+    },
+    {
+      name: "BAZE",
+      full_name: "Baze University",
+    },
+    {
+      name: "BELLS",
+      full_name: "Bells University of Technology",
+    },
+    {
+      name: "BENSON",
+      full_name: "Benson Idahosa University",
+    },
+    {
+      name: "BSU",
+      full_name: "Benue State University",
+    },
+    {
+      name: "BINGHAM",
+      full_name: "Bingham University",
+    },
+    {
+      name: "BORNO",
+      full_name: "Borno State University",
+    },
+    {
+      name: "BOWEN",
+      full_name: "Bowen University",
+    },
+    {
+      name: "CALEB",
+      full_name: "Caleb University",
+    },
+    {
+      name: "CARITAS",
+      full_name: "Caritas University",
+    },
+    {
+      name: "CHRISLAND",
+      full_name: "Chrisland University",
+    },
+    {
+      name: "CHRISTOPHER",
+      full_name: "Christopher University",
+    },
+    {
+      name: "COOU",
+      full_name: "Chukwuemeka Odumegwu Ojukwu University",
+    },
+    {
+      name: "CLIFFORD",
+      full_name: "Clifford University",
+    },
+    {
+      name: "CCU",
+      full_name: "Coal City University",
+    },
+    {
+      name: "COVENANT",
+      full_name: "Covenant University",
+    },
+    {
+      name: "CRAWFORD",
+      full_name: "Crawford University",
+    },
+    {
+      name: "CRESCENT",
+      full_name: "Crescent University, Abeokuta",
+    },
+    {
+      name: "CROWN HILL",
+      full_name: "Crown Hill University",
+    },
+    {
+      name: "DELSU",
+      full_name: "Delta State University, Abraka",
+    },
+    {
+      name: "DOMINICAN",
+      full_name: "Dominican University, Ibadan",
+    },
+    {
+      name: "EBSU",
+      full_name: "Ebonyi State University",
+    },
+    {
+      name: "EDO",
+      full_name: "Edo State University Uzairue",
+    },
+    {
+      name: "EDWIN CLARK",
+      full_name: "Edwin Clark University",
+    },
+    {
+      name: "EKSU",
+      full_name: "Ekiti State University, Ado Ekiti",
+    },
+    {
+      name: "EKOMED",
+      full_name: "Eko University of Medical and Health Sciences",
+    },
+    {
+      name: "ELIZADE",
+      full_name: "Elizade University",
+    },
+    {
+      name: "ENUGU TECH",
+      full_name: "Enugu State University of Science and Technology",
+    },
+    {
+      name: "EVANGEL",
+      full_name: "Evangel University, Akaeze",
+    },
+    {
+      name: "FUNAAB",
+      full_name: "Federal University of Agriculture, Abeokuta",
+    },
+    {
+      name: "FUPRE",
+      full_name: "Federal University of Petroleum Resources",
+    },
+    {
+      name: "FUTA",
+      full_name: "Federal University of Technology, Akure",
+    },
+    {
+      name: "FUT MINNA",
+      full_name: "Federal University of Technology, Minna",
+    },
+    {
+      name: "FUT OWERRI",
+      full_name: "Federal University of Technology, Owerri",
+    },
+    {
+      name: "FUBK",
+      full_name: "Federal University, Birnin Kebbi",
+    },
+    {
+      name: "FUD",
+      full_name: "Federal University, Dutse",
+    },
+    {
+      name: "FUDMA",
+      full_name: "Federal University, Dutsin-Ma",
+    },
+    {
+      name: "FUG",
+      full_name: "Federal University, Gashua",
+    },
+    {
+      name: "FUGUS",
+      full_name: "Federal University, Gusau",
+    },
+    {
+      name: "FUK",
+      full_name: "Federal University, Kashere",
+    },
+    {
+      name: "FULAFIA",
+      full_name: "Federal University, Lafia",
+    },
+    {
+      name: "FULOKOJA",
+      full_name: "Federal University, Lokoja",
+    },
+    {
+      name: "FOUTOKE",
+      full_name: "Federal University, Otuoke",
+    },
+    {
+      name: "FUYE",
+      full_name: "Federal University, Oye-Ekiti",
+    },
+    {
+      name: "FUWUKARI",
+      full_name: "Federal University, Wukari",
+    },
+    {
+      name: "FOUNTAIN",
+      full_name: "Fountain University, Osogbo",
+    },
+    {
+      name: "GLORIOUS",
+      full_name: "Glorious Vision University",
+    },
+    {
+      name: "GODFREY OKOYE",
+      full_name: "Godfrey Okoye University",
+    },
+    {
+      name: "GOMBE",
+      full_name: "Gombe State University",
+    },
+    {
+      name: "GOMSTECH",
+      full_name: "Gombe State University of Science and Technology",
+    },
+    {
+      name: "GREGORY",
+      full_name: "Gregory University, Uturu",
+    },
+    {
+      name: "HALLMARK",
+      full_name: "Hallmark University, Ijebu-Itele",
+    },
+    {
+      name: "HEZEKIAH",
+      full_name: "Hezekiah University",
+    },
+    {
+      name: "IBB",
+      full_name: "Ibrahim Badamasi Babangida University",
+    },
+    {
+      name: "IGBINEDION",
+      full_name: "Igbinedion University Okada",
+    },
+    {
+      name: "IAUE",
+      full_name: "Ignatius Ajuru University of Education",
+    },
+    {
+      name: "IMSU",
+      full_name: "Imo State University",
+    },
+    {
+      name: "JABU",
+      full_name: "Joseph Ayo Babalola University",
+    },
+    {
+      name: "JOSTU",
+      full_name: "Joseph Sarwuan Tarkaa University",
+    },
+    {
+      name: "KADSU",
+      full_name: "Kaduna State University",
+    },
+    {
+      name: "KUST",
+      full_name: "Kano University of Science and Technology",
+    },
+    {
+      name: "KARL KUUM",
+      full_name: "Karl Kuum University",
+    },
+    {
+      name: "KEBSUST",
+      full_name: "Kebbi State University of Science and Technology",
+    },
+    {
+      name: "KINGS",
+      full_name: "Kings University",
+    },
+    {
+      name: "KOMBADIWE",
+      full_name: "Kingsley Ozumba Mbadiwe University",
+    },
+    {
+      name: "KOLA DAISI",
+      full_name: "Kola Daisi University",
+    },
+    {
+      name: "KWARASTU",
+      full_name: "Kwara State University",
+    },
+    {
+      name: "KWARARFA",
+      full_name: "Kwararafa University, Wukari",
+    },
+    {
+      name: "LAUTECH",
+      full_name: "Ladoke Akintola University of Technology",
+    },
+    {
+      name: "LASU",
+      full_name: "Lagos State University",
+    },
+    {
+      name: "LANDMARK",
+      full_name: "Landmark University",
+    },
+    {
+      name: "LEAD CITY",
+      full_name: "Lead City University",
+    },
+    {
+      name: "LEGACY",
+      full_name: "Legacy University, Okija",
+    },
+    {
+      name: "MADONNA",
+      full_name: "Madonna University, Nigeria",
+    },
+    {
+      name: "MCPHERSON",
+      full_name: "Mcpherson University",
+    },
+    {
+      name: "MEWAR",
+      full_name: "Mewar International University",
+    },
+    {
+      name: "MICHAEL C IBRU",
+      full_name: "Michael and Cecilia Ibru University",
+    },
+    {
+      name: "MICHAEL OKPARA",
+      full_name: "Michael Okpara University of Agriculture",
+    },
+    {
+      name: "MODIBBO",
+      full_name: "Modibbo Adama University, Yola",
+    },
+    {
+      name: "MOSHOOD",
+      full_name: "Moshood Abiola Polytechnic, Abeokuta",
+    },
+    {
+      name: "MOUNTAIN TOP",
+      full_name: "Mountain Top University",
+    },
+    {
+      name: "NASU",
+      full_name: "Nasarawa State University",
+    },
+    {
+      name: "NDU",
+      full_name: "Niger Delta University",
+    },
+    {
+      name: "NIMARU",
+      full_name: "Nigerian Maritime University, Okerenkoko",
+    },
+    {
+      name: "NILE",
+      full_name: "Nile University of Nigeria",
+    },
+    {
+      name: "NNAMDI AZIKIWE",
+      full_name: "Nnamdi Azikiwe University",
+    },
+    {
+      name: "OAU",
+      full_name: "Obafemi Awolowo University",
+    },
+    {
+      name: "OBONG",
+      full_name: "Obong University",
+    },
+    {
+      name: "ODUDUWA",
+      full_name: "Oduduwa University",
+    },
+    {
+      name: "OOU",
+      full_name: "Olabisi Onabanjo University",
+    },
+    {
+      name: "ONDO-STATE",
+      full_name: "Ondo State University of Science and Technology",
+    },
+    {
+      name: "OSUN",
+      full_name: "Osun State University",
+    },
+    {
+      name: "PAMO",
+      full_name: "PAMO University of Medical Sciences",
+    },
+    {
+      name: "PAN-ATLANTIC",
+      full_name: "Pan-Atlantic University",
+    },
+    {
+      name: "PAUL",
+      full_name: "Paul University",
+    },
+    {
+      name: "PEACELAND",
+      full_name: "Peaceland University Enugu",
+    },
+    {
+      name: "PLATEAU",
+      full_name: "Plateau State University",
+    },
+    {
+      name: "PRECIOUS CORNERSTONE",
+      full_name: "Precious Cornerstone University",
+    },
+    {
+      name: "PAUU",
+      full_name: "Prince Abubakar Audu University",
+    },
+    {
+      name: "REDEEMERS",
+      full_name: "Redeemer's University",
+    },
+    {
+      name: "RENAISSANCE",
+      full_name: "Renaissance University",
+    },
+    {
+      name: "RHEMA",
+      full_name: "Rhema University",
+    },
+    {
+      name: "RITMAN",
+      full_name: "Ritman University",
+    },
+    {
+      name: "RSU",
+      full_name: "Rivers State University",
+    },
+    {
+      name: "SALEM",
+      full_name: "Salem University",
+    },
+    {
+      name: "SKYLINE",
+      full_name: "Skyline University Nigeria",
+    },
+    {
+      name: "SOKOTO",
+      full_name: "Sokoto State University",
+    },
+    {
+      name: "SOUTHWESTERN",
+      full_name: "Southwestern University, Nigeria",
+    },
+    {
+      name: "SPIRITAN",
+      full_name: "Spiritan University Nneochi",
+    },
+    {
+      name: "SULE LAMIDO",
+      full_name: "Sule Lamido University",
+    },
+    {
+      name: "SUMMIT",
+      full_name: "Summit University Offa",
+    },
+    {
+      name: "TASUED",
+      full_name: "Tai Solarin University of Education",
+    },
+    {
+      name: "TANSIAN",
+      full_name: "Tansian University",
+    },
+    {
+      name: "TARABA",
+      full_name: "Taraba State University",
+    },
+    {
+      name: "TECHNICAL",
+      full_name: "The Technical University",
+    },
+    {
+      name: "THOMAS ADEWUMI",
+      full_name: "Thomas Adewumi University",
+    },
+    {
+      name: "UMYARADUA",
+      full_name: "Umaru Musa Yar'Adua University",
+    },
+    {
+      name: "UNIABUJA",
+      full_name: "University of Abuja",
+    },
+    {
+      name: "UNIAFRICA",
+      full_name: "University of Africa",
+    },
+    {
       name: "UNIBEN",
       full_name: "University of Benin",
     },
     {
-      name: "FUPRE",
-      full_name: "Federal University of Petroleum",
+      name: "UNICAL",
+      full_name: "University of Calabar",
+    },
+    {
+      name: "UNICROSS",
+      full_name: "University of Cross River State",
+    },
+    {
+      name: "UI",
+      full_name: "University of Ibadan",
+    },
+    {
+      name: "UNILORIN",
+      full_name: "University of Ilorin",
+    },
+    {
+      name: "UNIJOS",
+      full_name: "University of Jos",
+    },
+    {
+      name: "UNILAG",
+      full_name: "University of Lagos",
+    },
+    {
+      name: "UNIMAID",
+      full_name: "University of Maiduguri",
+    },
+    {
+      name: "UNIMED",
+      full_name: "University of Medical Sciences",
+    },
+    {
+      name: "UNIMKAR",
+      full_name: "University of Mkar",
+    },
+    {
+      name: "UNN",
+      full_name: "University of Nigeria",
+    },
+    {
+      name: "UNIPORT",
+      full_name: "University of Port Harcourt",
+    },
+    {
+      name: "UNIYO",
+      full_name: "University of Uyo",
+    },
+    {
+      name: "UDUSOK",
+      full_name: "Usmanu Danfodio University",
+    },
+    {
+      name: "VERITAS",
+      full_name: "Veritas University",
+    },
+    {
+      name: "WELLSPRING",
+      full_name: "Wellspring University",
+    },
+    {
+      name: "WESLEY",
+      full_name: "Wesley University of Science and Technology",
+    },
+    {
+      name: "WESTERN DELTA",
+      full_name: "Western Delta University",
+    },
+    {
+      name: "YOBESTATE",
+      full_name: "Yobe State University",
+    },
+    {
+      name: "ZAMFARA",
+      full_name: "Zamfara State University",
     },
   ],
 };

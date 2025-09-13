@@ -3,22 +3,20 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "iconsax-react";
+import { Menu } from "iconsax-reactjs";
 import { useState } from "react";
-import { useGlobal } from "@/context/GlobalContext";
-// import { logout } from "@/api/actions/auth";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { navLinks } from "./company-header";
-
-type logoutCallback = () => void;
+import { logout } from "@/actions/auth";
+import { useCompanyStore } from "@/lib/store/company";
 
 export function CompanyMobileNav() {
   const [open, setOpen] = useState<boolean>(false);
-  const { company } = useGlobal();
+  const company = useCompanyStore((c) => c.company);
 
   const handleLogout = () => {
-    // logout({});
+    logout();
     window.location.href = "/";
   };
 

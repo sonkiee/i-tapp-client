@@ -1,23 +1,26 @@
 "use client";
 
+import React from "react";
+
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "iconsax-react";
+import { Menu } from "iconsax-reactjs";
 import { useState } from "react";
-import { useGlobal } from "@/context/GlobalContext";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { navLinks } from "./header";
+import { logout } from "@/actions/auth";
+import { useStudentStore } from "@/lib/store/student";
 // import { logout } from "@/actions/auth";
 
 export function MobileNav() {
   const [open, setOpen] = useState<boolean>(false);
+  const student = useStudentStore((s) => s.student);
 
-  const { students, student } = useGlobal();
-  const name = student.firstName + " " + student.lastName;
+  const name = student?.firstName + " " + student?.lastName;
 
-  const handleLogout = () => {
-    // logout("");
+  const handleLogout = async () => {
+    await logout();
     window.location.href = "/";
   };
 
@@ -26,7 +29,7 @@ export function MobileNav() {
       <SheetTrigger className="md:hidden">
         <Menu size={24} />
       </SheetTrigger>
-      <SheetContent className="w-full max-w-[300px] py-16 flex flex-col  gap-8 md:hidden">
+      <SheetContent className="w-full bg-white max-w-[300px] py-16 flex flex-col gap-8 md:hidden">
         <Link href="/portal/profile">
           <div className="">
             <div className="rounded-full border h-[50px] w-[50px]">

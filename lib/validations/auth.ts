@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const signinSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(1),
 });
 
@@ -12,7 +12,7 @@ export const companyIdSchema = z.object({
 });
 
 export const signupSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(1),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
@@ -25,14 +25,16 @@ export const acceptSchema = z.object({
 });
 
 export const verifyStudentIdentitySchema = z.object({
-  matNo: z.string().min(1),
+  matNo: z
+    .string()
+    .min(1, "Please provide school matric or registration number"),
   school: z.string().min(1),
 });
 
 export const studentSignupSchema = z
   .object({
-    email: z.string().email(),
-    password: z.string().min(1),
+    email: z.email(),
+    password: z.string().min(4, "Provide password"),
     confirmPassword: z.string().min(1),
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -42,7 +44,7 @@ export const studentSignupSchema = z
 
 export const verifyCompanySchema = z.object({
   company_name: z.string().min(1, "Company name is required"),
-  email: z.string().email("Invalid email format"),
+  email: z.email("Invalid email format"),
   address: z.string().min(1, "Address is required"),
   password: z.string().min(1, "Password is required"),
 });
@@ -54,8 +56,6 @@ export const companySignupSchema = z.object({
   it_duration: z.string().min(1, "IT duration must be at least 1"),
   // companyId: z.string().min(1, "Company ID is required"),
 });
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 export const companyProfileSchema = z.object({
   phone: z.string().optional(),

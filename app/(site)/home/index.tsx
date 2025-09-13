@@ -1,3 +1,4 @@
+import React from "react";
 import { Hero } from "./_molecules/hero";
 import { Services } from "./_molecules/services";
 import { HowItWorks } from "./_molecules/how-it-works";

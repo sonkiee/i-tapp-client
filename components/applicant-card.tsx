@@ -9,11 +9,10 @@ import {
   CloseCircle,
   SmsEdit,
   TickCircle,
-} from "iconsax-react";
+} from "iconsax-reactjs";
 import { useGlobal } from "@/context/GlobalContext";
 import { useAction } from "next-safe-action/hooks";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { Applicant } from "@/types";
 import {
   acceptApplication,
@@ -24,7 +23,7 @@ import {
 export function ApplicantCard({ applicant }: { applicant: Applicant }) {
   const { setSelectedApplicant } = useGlobal();
 
-  let { id, accepted } = applicant;
+  const { id, accepted } = applicant;
   const student = applicant.student;
   const studentId = student.id;
 
@@ -39,8 +38,8 @@ export function ApplicantCard({ applicant }: { applicant: Applicant }) {
     onError: (error) => {
       const { serverError } = error?.error;
       console.log(error);
-      const errorMessage = serverError?.message || "An error occurred.";
-      console.log(serverError?.message);
+      const errorMessage = serverError || "An error occurred.";
+      console.log(errorMessage);
       toast.error(errorMessage);
     },
   });
@@ -55,8 +54,8 @@ export function ApplicantCard({ applicant }: { applicant: Applicant }) {
     },
     onError: (error) => {
       const { serverError } = error?.error;
-      const errorMessage = serverError?.message || "An error occurred.";
-      console.log(serverError?.message);
+      const errorMessage = serverError || "An error occurred.";
+      console.log(serverError);
       toast.error(errorMessage);
     },
   });
@@ -71,8 +70,8 @@ export function ApplicantCard({ applicant }: { applicant: Applicant }) {
     },
     onError: (error) => {
       const { serverError } = error?.error;
-      const errorMessage = serverError?.message || "An error occurred.";
-      console.log(serverError?.message);
+      const errorMessage = serverError || "An error occurred.";
+      console.log(serverError);
       toast.error(errorMessage);
     },
   });
@@ -176,7 +175,6 @@ export function ApplicantCard({ applicant }: { applicant: Applicant }) {
           </span>
         </div>
       )} */}
-      <ToastContainer />
     </div>
   );
 }

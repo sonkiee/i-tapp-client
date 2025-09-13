@@ -24,8 +24,7 @@ import {
 import { useGlobal } from "@/context/GlobalContext";
 import { useAction } from "next-safe-action/hooks";
 // import { updateSpace } from "@/api/actions/auth";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { updateSpace } from "@/actions/company";
 
 export function UpdateSpaceForm() {
@@ -64,7 +63,7 @@ export function UpdateSpaceForm() {
       </div>
       {hasErrored && (
         <span className="text-danger font-semi-bold ">
-          {result.serverError?.message}
+          {result.serverError}
         </span>
       )}
 
@@ -235,7 +234,6 @@ export function UpdateSpaceForm() {
           </form>
         </Form>
       </div>
-      <ToastContainer />
     </div>
   );
 }
