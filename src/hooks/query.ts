@@ -5,7 +5,17 @@ export const useFetchJobs = () => {
   return useQuery({
     queryKey: ["jobs"],
     queryFn: async () => {
-      const response = await query("/student/jobs");
+      const response = await query("/o");
+      return response;
+    },
+  });
+};
+
+export const useFetchProfile = () => {
+  return useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      const response = await query("/me/profile");
       return response;
     },
   });
@@ -15,7 +25,7 @@ export const useFetchApplication = () => {
   return useQuery({
     queryKey: ["application"],
     queryFn: async () => {
-      const response = await query("/student/applications");
+      const response = await query("/applications/my-application");
       return response;
     },
   });
@@ -45,7 +55,7 @@ export const useFetchAllCompanyApplications = () => {
   return useQuery({
     queryKey: ["company-application"],
     queryFn: async () => {
-      const response = await query("/company/all/category");
+      const response = await query("/applications/applicants");
       return response;
     },
   });

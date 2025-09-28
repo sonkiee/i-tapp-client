@@ -26,7 +26,6 @@ export default function Search() {
         <Input
           className="border-none p-0 w-full placeholder:text-primary placeholder:text-sm"
           placeholder="Search with company name or field"
-          startAdornment={<SearchNormal1 size="18" color="#6E6E9B" />}
           onChange={(e) => handleSearch(e.target.value.trim())}
           defaultValue={searchParams.get("query")?.toString()}
         />

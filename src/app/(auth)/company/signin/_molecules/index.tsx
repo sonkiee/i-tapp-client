@@ -38,8 +38,9 @@ export function CompanySignIn() {
     signinCompany,
     {
       onSuccess(data) {
-        const company = data?.data?.company;
-        setCompany(company);
+        const user = data?.data?.user;
+        const profile = data?.data?.profile;
+        setCompany({ ...user, ...profile });
 
         toast.success("Welcome back!");
         router.push("/portal/overview/dashboard");

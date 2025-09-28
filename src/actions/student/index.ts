@@ -12,7 +12,7 @@ export const apply = actionClient
   .inputSchema(applyJ)
   .action(async ({ parsedInput: { jobId } }) => {
     try {
-      const response = await mutate("/student/job/apply", { jobId });
+      const response = await mutate(`/applications/${jobId}/apply`);
 
       return response;
     } catch (error) {

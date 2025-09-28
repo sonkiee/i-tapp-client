@@ -4,20 +4,21 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import ProfileForm from "./profile-form";
 import { useStudentStore } from "@/lib/store/student";
-import { logout } from "@/actions/auth";
+import { useFetchProfile } from "@/hooks/query";
+import { logout } from "@/utils/auth";
 
 export default function ProfilePage() {
-  const [editing, setEditing] = useState(false);
-  const student = useStudentStore((s) => s.student);
+  const { data } = useFetchProfile();
 
-  const handleLogout = async () => {
-    await logout();
-    window.location.href = "/";
-  };
+  const [editing, setEditing] = useState(false);
+  const setStudent = useStudentStore((s) => s.setStudent);
+  const student = useStudentStore((s) => s.student);
 
   if (!student) {
     return <p className="text-center text-gray-500 mt-24">No student data</p>;
   }
+
+  console.log(student);
 
   if (editing) {
     return (
@@ -28,7 +29,7 @@ export default function ProfilePage() {
             <Button variant="secondary" onClick={() => setEditing(false)}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleLogout}>
+            <Button variant="destructive" onClick={logout}>
               Logout
             </Button>
           </div>
@@ -44,7 +45,7 @@ export default function ProfilePage() {
         <h1 className="text-xl font-semibold">Student Profile</h1>
         <div className="flex space-x-2">
           <Button onClick={() => setEditing(true)}>Edit Profile</Button>
-          <Button variant="destructive" onClick={handleLogout}>
+          <Button variant="destructive" onClick={logout}>
             Logout
           </Button>
         </div>
@@ -53,10 +54,10 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Left column */}
         <div className="space-y-4">
-          <Field label="First Name" value={student.firstName} />
-          <Field label="Last Name" value={student.lastName} />
+          <Field label="First Name" value={student?.firstName} />
+          <Field label="Last Name" value={student?.lastName} />
           <Field label="Email" value={student.email} />
-          <Field label="Phone" value={student.phoneNumber} />
+          <Field label="Phone" value={student.phone} />
         </div>
 
         {/* Right column */}
@@ -69,7 +70,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mt-6">
-        <Field label="Bio" value={student.bio} multiline />
+        <Field label="Bio" value={student?.profileBio} multiline />
       </div>
     </div>
   );

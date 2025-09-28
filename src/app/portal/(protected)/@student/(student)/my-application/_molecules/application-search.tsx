@@ -26,7 +26,6 @@ export default function ApplicationSearch() {
       <h6 className="text-h6 self-center">All Application</h6>
       <div className="flex gap-4 whitespace-nowrap  ">
         <Input
-          // startAdornment={<SearchNormal1 color="#7E7E7E" size="24" />}
           className="rounded-xl bg-[#F9FBFF] border-none h-9 "
           id="search"
           placeholder="Search"

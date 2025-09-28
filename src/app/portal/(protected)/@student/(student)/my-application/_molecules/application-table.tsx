@@ -31,11 +31,11 @@ export default function ApplicationTable({ query, applications }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {myApplication.map((application, key) => (
+            {applications.map((application, key) => (
               <TableRow key={key}>
-                <TableCell>{application.companyName}</TableCell>
+                <TableCell>{application?.opportunity?.company?.name}</TableCell>
                 <TableCell>
-                  {moment(application.createdAt).format("MMM Do YY")}
+                  {moment(application.appliedAt).format("MMM Do YY")}
                 </TableCell>
                 <TableCell>{application.location}</TableCell>
                 <TableCell>{application.industry}</TableCell>

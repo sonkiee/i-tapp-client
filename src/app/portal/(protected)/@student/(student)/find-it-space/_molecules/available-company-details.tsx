@@ -45,12 +45,14 @@ export default function AvailableCompanyDetails({
     createdDate,
     totalApplicants,
     location,
+    hasApplied,
   } = details;
 
   const {
     execute: applyAction,
     isExecuting,
     hasErrored,
+    result,
   } = useAction(apply, {
     onSuccess(data) {
       toast.success(data.data.message);
@@ -61,7 +63,7 @@ export default function AvailableCompanyDetails({
     },
   });
 
-  const { execute: saveAction } = useAction(save, {
+  const { execute: saveAction, result: saveResult } = useAction(save, {
     onSuccess(data) {
       toast.success(data.data.message);
     },
@@ -163,15 +165,11 @@ export default function AvailableCompanyDetails({
         size="sm"
         className="w-full"
         onClick={handleApply}
-        disabled={isExecuting}
+        disabled={hasApplied || isExecuting}
       >
-        {isExecuting ? "Applying..." : "Apply Now"}
+        {hasApplied ? "Applied" : isExecuting ? "Applying..." : "Apply Now"}
       </Button>
-      {hasErrored && (
-        <p className="text-red-500 mt-2">
-          Application failed. Please try again.
-        </p>
-      )}
+      {hasErrored && <p className="text-red-500 mt-2">{result?.serverError}</p>}
     </div>
   );
 }

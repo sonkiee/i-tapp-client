@@ -30,6 +30,8 @@ export function Dashboard() {
   const acceptedApplicantsCount = acceptedApplicants[1];
   const shortlistedApplicantsCount = shortlistedApplicants[1];
 
+  console.log("company", company);
+
   return (
     <div className="flex flex-col gap-4">
       <h5 className="text-h6">

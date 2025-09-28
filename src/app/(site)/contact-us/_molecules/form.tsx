@@ -19,11 +19,7 @@ export function Form() {
         >
           Name
         </Label>
-        <Input
-          type="text"
-          id="name"
-          startAdornment={<Happyemoji size={24} color="#acb4c3" />}
-        />
+        <Input type="text" id="name" />
 
         <FormField>
           <Label
@@ -32,11 +28,7 @@ export function Form() {
           >
             Email
           </Label>
-          <Input
-            type="email"
-            id="email"
-            startAdornment={<Sms size={24} color="#acb4c3" />}
-          />
+          <Input type="email" id="email" />
         </FormField>
 
         <FormField>
@@ -56,7 +48,7 @@ export function Form() {
           </Label>
         </FormField>
 
-        <Button className="block text-sm sm:text-base" size={"md"}>
+        <Button className="block text-sm sm:text-base" size={"default"}>
           Send
         </Button>
       </form>

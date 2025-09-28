@@ -12,17 +12,16 @@ export default function MyApplication({ searchParams }) {
   const query = searchParams?.query || "";
 
   // Fetch applications with react-query
-  const {
-    data: applications = [],
-    isLoading,
-    isError,
-    error,
-  } = useFetchApplication();
+  const { data, isLoading, isError, error } = useFetchApplication();
+
+  const applications = data?.data?.applications ?? [];
 
   const { setCurrentPage, postPerPage, currentPage, paginate } = usePaginator(
     6,
     applications
   );
+
+  console.log("ftehced", applications);
 
   return (
     <div>

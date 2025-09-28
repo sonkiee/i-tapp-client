@@ -13,31 +13,25 @@ import { clearAuthCookies, setAuthCookies } from "@/utils/cookies";
 export const signinStudent = actionClient
   .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/auth/login", {
+    const response = await mutate("/auth/signin", {
       email,
       password,
     });
-
-    console.log(response?.data);
-
-    const { user, company, role, accessToken } = response.data;
-    await setAuthCookies(accessToken, user.role);
-    return { user, role, company, accessToken };
+    const { user, token, profile } = response.data;
+    await setAuthCookies(token, user.role);
+    return { user, token, profile };
   });
 
 export const signinCompany = actionClient
   .inputSchema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/company/login", {
+    const response = await mutate("/auth/signin", {
       email,
       password,
     });
-
-    console.log(response?.data);
-
-    const { accessToken, user, company, role } = response.data;
-    await setAuthCookies(accessToken, company.role);
-    return { user, accessToken, role, company };
+    const { token, user, role, profile } = response.data;
+    await setAuthCookies(token, user.role);
+    return { token, role, user, profile };
   });
 
 export const logout = async () => {

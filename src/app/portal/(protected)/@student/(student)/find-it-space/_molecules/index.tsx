@@ -33,6 +33,8 @@ export default function FindITSpace({ searchParams }) {
     return <p className="text-center text-red-500">Failed to load jobs.</p>;
   }
 
+  console.log("jjjjjjjj", jobs);
+
   return (
     <Wrapper
       className={cn(

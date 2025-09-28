@@ -12,9 +12,6 @@ export function middleware(req: NextRequest) {
   const role = req.cookies.get("role")?.value;
   const { pathname } = req.nextUrl;
 
-  console.log("user auth token", token);
-  console.log("user auth role", role);
-
   // Case 0: Token but no role → reset cookies and force re-login
   if (token && !role) {
     const res = NextResponse.redirect(new URL("/signin", req.url));

@@ -40,7 +40,11 @@ export function StudentSignIn() {
     {
       onSuccess(data) {
         const user = data?.data?.user;
-        setStudent(user);
+        const profile = data?.data?.profile;
+
+        console.log("userrrrrrr", user);
+        setStudent({ ...user, ...profile });
+
         toast.success("Welcome back!");
         router.push("/portal/find-it-space");
         // router.refresh();
