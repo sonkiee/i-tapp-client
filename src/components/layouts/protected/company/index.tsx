@@ -9,7 +9,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
   return (
     <>
       <CompanyHeader />
-      <Wrapper className="flex items-start gap-8">
+      <Wrapper className="flex">
         <Nav />
         <div className="w-full">{children}</div>
       </Wrapper>

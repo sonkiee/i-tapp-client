@@ -9,15 +9,16 @@ import { ApplicantCard } from "../../../../../../../components/applicant-card";
 import { Applicant } from "@/types";
 import { useFetchAllCompanyApplications } from "@/hooks/query";
 import { useCompanyStore } from "@/lib/store/company";
+import OpportunityCard from "./opportunity-card";
 
 export function Dashboard() {
   const company = useCompanyStore((s) => s.company);
 
   const { data, isLoading } = useFetchAllCompanyApplications();
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  // if (isLoading) {
+  //   return <p>Loading...</p>;
+  // }
 
   // ✅ Safe destructuring from API response
   const totalApplicants = data?.data?.totalApplicants || [[], 0];
@@ -74,6 +75,15 @@ export function Dashboard() {
             .map((applicant: Applicant, index: number) => (
               <ApplicantCard key={index} applicant={applicant} />
             ))}
+        </div>
+        <div>
+          <OpportunityCard
+            title="Frontend Developer"
+            applicants={5}
+            status="open"
+            actionLabel="View Applicants"
+            onAction={() => console.log("Viewing opportunity")}
+          />
         </div>
       </div>
     </div>

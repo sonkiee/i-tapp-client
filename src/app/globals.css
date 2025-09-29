@@ -4,21 +4,21 @@
 
 @theme inline {
   /* Container Configuration */
-  --container-center: true;
+  /* --container-center: true;
   --container-padding: 2rem;
   --container-padding-sm: 2rem;
   --container-padding-lg: 3rem;
   --container-padding-xl: 6rem;
-  --container-padding-2xl: 8rem;
+  --container-padding-2xl: 8rem; */
 
   /* Custom Breakpoints */
-  --breakpoint-xxs: 375px;
+  /* --breakpoint-xxs: 375px;
   --breakpoint-xs: 425px;
   --breakpoint-sm: 768px;
   --breakpoint-md: 960px;
   --breakpoint-lg: 1024px;
   --breakpoint-touch: 1200px;
-  --breakpoint-xl: 1440px;
+  --breakpoint-xl: 1440px; */
 
   /* Font Families */
   --font-family-inter: var(--font-inter);

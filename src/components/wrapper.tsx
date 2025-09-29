@@ -11,7 +11,7 @@ export function Wrapper({
   return (
     <section
       className={cn(
-        "w-full max-w-[1440px] px-6 sm:px-8 md:px-[80px] touch:px-[118px] m-auto py-20 sm:py-[102px]",
+        "w-full  px-6 sm:px-8 md:px-[80px] touch:px-[118px] m-auto py-20 sm:py-[102px]",
         className
       )}
     >
@@ -19,3 +19,4 @@ export function Wrapper({
     </section>
   );
 }
+// max-w-[1440px]

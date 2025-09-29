@@ -2,11 +2,18 @@
 
 import React from "react";
 import Link from "next/link";
-import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-reactjs";
+import {
+  AddCircle,
+  Element,
+  Profile2User,
+  BoxAdd,
+  Briefcase,
+} from "iconsax-reactjs";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useFetchCompanyJobs } from "@/hooks/query";
 import { useCompanyStore } from "@/lib/store/company";
+// import { Briefcase } from "lucide-react";
 
 type Job = {
   id: string;
@@ -40,6 +47,11 @@ const sideNavLinks: {
       icon: <Profile2User />,
       text: "Applicants",
       href: "/portal/overview/applicants",
+    },
+    {
+      icon: <Briefcase />,
+      text: "Opportunities",
+      href: "/portal/overview/opportunities",
     },
   ],
   candidates: [

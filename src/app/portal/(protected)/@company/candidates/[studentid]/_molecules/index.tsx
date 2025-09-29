@@ -5,23 +5,17 @@ import Image from "next/image";
 import { ArrowLeft, Call, Location, Note1, Sms } from "iconsax-reactjs";
 import { useGlobal } from "@/context/GlobalContext";
 import { Button } from "@/components/ui/button";
-// import { acceptApplication, declineApplication } from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "react-toastify";
-
 import Link from "next/link";
 import moment from "moment";
 import { acceptApplication, declineApplication } from "@/actions/company";
+import { GraduationCap } from "lucide-react";
 
 export default function CandidateProfile() {
   const { selectedApplicant } = useGlobal();
-  console.log(selectedApplicant);
-
   const student = selectedApplicant?.student;
-  const id = student?.id;
-
   const name = student?.firstName + " " + student?.lastName;
-  console.log(student);
 
   const { execute: acceptAction, isExecuting: isAccepting } = useAction(
     acceptApplication,
@@ -32,7 +26,6 @@ export default function CandidateProfile() {
       onError: (error) => {
         const { serverError } = error?.error;
         const errorMessage = serverError || "An error occurred.";
-        console.log(serverError);
         toast.error(errorMessage);
       },
     }
@@ -47,7 +40,6 @@ export default function CandidateProfile() {
       onError: (error) => {
         const { serverError } = error?.error;
         const errorMessage = serverError || "An error occurred.";
-        console.log(serverError);
         toast.error(errorMessage);
       },
     }
@@ -60,173 +52,230 @@ export default function CandidateProfile() {
   };
 
   return (
-    <div className="p-6 bg-background">
-      <div className="flex gap-6 justify-between flex-wrap mb-8">
-        <div className="flex gap-6 items-center">
+    <div className="min-h-screen bg-background py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Header Section */}
+        <div className="flex gap-6 items-center mb-8">
           <Link href={`/portal/candidates/accepted`}>
-            <ArrowLeft className="text-foreground cursor-pointer" size={24} />
+            <ArrowLeft
+              className="text-foreground cursor-pointer hover:text-primary transition-colors"
+              size={24}
+            />
           </Link>
-          <div className="rounded-full border h-[100px] w-[100px]">
+          <div className="rounded-full border-2 border-primary/20 h-[100px] w-[100px] overflow-hidden">
             <Image
               src={student?.profileImageUrl || "/applicant.png"}
-              alt="applicant"
+              alt={name}
               width={100}
               height={100}
-              className="object-cover w-full h-full rounded-full"
+              className="object-cover w-full h-full"
             />
           </div>
           <div>
-            <p className="font-semibold text-lg text-foreground">{name}</p>
-            <p className="text-base pt-1.5 pr-2.5 text-muted-foreground">
-              {student?.courseOfStudy || "Not specified "}
+            <h1 className="font-semibold text-2xl text-foreground">{name}</h1>
+            <p className="text-base pt-1 text-muted-foreground">
+              {student?.courseOfStudy || "Not specified"}
             </p>
           </div>
         </div>
 
-        {selectedApplicant.accepted ? (
-          <>
-            {" "}
-            <div className="flex gap-3 justify-center items-center">
-              <div className="flex flex-col gap-2 items-center">
-                <p>
-                  Start Date:{" "}
-                  <span className="font-bold">
-                    {selectedApplicant?.startDate
-                      ? moment(selectedApplicant.startDate).format("ll")
-                      : "N/A"}
-                  </span>
-                </p>
-                <p>
-                  End Date:{" "}
-                  <span className="font-bold">
-                    {selectedApplicant?.endDate
-                      ? moment(selectedApplicant.endDate).format("ll")
-                      : "N/A"}
-                  </span>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Bio & Contact Info Card */}
+          <div className="border-2 border-primary/20 rounded-lg bg-card p-6">
+            <h2 className="text-xl font-bold text-foreground mb-4">
+              Bio & Contact
+            </h2>
+
+            <div className="space-y-4">
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">ABOUT</p>
+                <p className="text-sm text-foreground leading-relaxed">
+                  {student?.bio || "No bio provided."}
                 </p>
               </div>
 
-              <Button
-                size="sm"
-                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3"
-              >
-                Accepted
-              </Button>
+              <hr className="border-primary/20" />
+
+              <div>
+                <div className="flex items-start gap-3 mb-3">
+                  <Sms className="text-primary mt-1" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      EMAIL ADDRESS
+                    </p>
+                    <a
+                      href={`mailto:${student?.email}`}
+                      className="text-sm font-semibold text-foreground hover:text-primary transition-colors"
+                    >
+                      {student?.email || "Not specified"}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 mb-3">
+                  <Call className="text-primary mt-1" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      PHONE NUMBER
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {student?.phoneNumber || "Not specified"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Location className="text-primary mt-1" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      ADDRESS
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {student?.address || "Not specified"}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-          </>
-        ) : (
-          <div className="flex gap-3 self-center">
-            <Button
-              onClick={handleAccept}
-              size="sm"
-              disabled={isAccepting}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3"
-            >
-              Accept
-            </Button>
-            <Button
-              onClick={() => declineAction({ studentId: student.id })}
-              disabled={isDeclining}
-              size="sm"
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3"
-            >
-              Decline
-            </Button>
           </div>
-        )}
-      </div>
 
-      <div className="mt-4">
-        <p className="font-bold mb-2 text-foreground">Bio</p>
+          {/* Application Status & Student Info Card */}
+          <div className="border-2 border-primary/20 rounded-lg bg-card">
+            {/* Application Status Section */}
+            <div className="p-6 border-b border-primary/20">
+              <h2 className="text-xl font-bold text-foreground mb-4">
+                Application Status
+              </h2>
 
-        <div className="flex justify-between gap-4 flex-wrap">
-          <p className="text-sm max-w-[590px] text-foreground">
-            {student?.bio || "No bio provided."}
-          </p>
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-muted-foreground">Status:</p>
+                  <span className="text-sm font-semibold text-foreground">
+                    {selectedApplicant?.accepted
+                      ? "Accepted"
+                      : "Pending Review"}
+                  </span>
+                </div>
 
-          <div className="border-2 border-primary/20 max-w-[380px] rounded-md bg-card">
-            <div className="flex flex-col gap-3 text-sm p-6">
-              <h6 className="text-md font-semibold text-foreground">
-                Student information
-              </h6>
-
-              <div className="flex flex-col gap-1">
-                <Note1 className="text-primary" size={20} />
-                <p className="text-muted-foreground text-sm">NAME OF SCHOOL</p>
-                <p className="font-bold text-foreground">
-                  {student?.school || "Not specified"}
-                </p>
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-muted-foreground">Applied Date:</p>
+                  <span className="text-sm font-semibold text-foreground">
+                    {selectedApplicant?.createdAt
+                      ? moment(selectedApplicant.createdAt).format("ll")
+                      : "N/A"}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-1">
-                <Sms className="text-primary" size={20} />
-                <p className="text-muted-foreground text-sm">EMAIL ADDRESS</p>
-                <p className="font-bold text-foreground">
-                  <a
-                    href={`mailto:${student?.email}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+              {selectedApplicant?.accepted ? (
+                <div className="space-y-3">
+                  <div className="bg-primary/5 rounded-md p-4 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm text-muted-foreground">
+                        Start Date:
+                      </p>
+                      <span className="text-sm font-bold text-foreground">
+                        {selectedApplicant?.startDate
+                          ? moment(selectedApplicant.startDate).format("ll")
+                          : "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <p className="text-sm text-muted-foreground">End Date:</p>
+                      <span className="text-sm font-bold text-foreground">
+                        {selectedApplicant?.endDate
+                          ? moment(selectedApplicant.endDate).format("ll")
+                          : "N/A"}
+                      </span>
+                    </div>
+                  </div>
+                  <Button
+                    size="lg"
+                    disabled
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
-                    {student?.email || "Not specified"}
-                  </a>
-                </p>
-              </div>
+                    Accepted
+                  </Button>
+                </div>
+              ) : (
+                <div className="flex gap-3">
+                  <Button
+                    onClick={handleAccept}
+                    size="default"
+                    disabled={isAccepting}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    {isAccepting ? "Processing..." : "Accept"}
+                  </Button>
+                  <Button
+                    onClick={() => declineAction({ studentId: student.id })}
+                    disabled={isDeclining}
+                    size="default"
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white"
+                  >
+                    {isDeclining ? "Processing..." : "Decline"}
+                  </Button>
+                </div>
+              )}
+            </div>
 
-              <div className="flex flex-col gap-1">
-                <Call className="text-primary" size={20} />
-                <p className="text-muted-foreground text-sm">PHONE NUMBER</p>
-                <p className="font-bold text-sm text-foreground">
-                  {student?.phoneNumber || "Not specified"}
-                </p>
-              </div>
+            {/* Student Information Section */}
+            <div className="p-6 border-b border-primary/20">
+              <h2 className="text-lg font-bold text-foreground mb-4">
+                Student Information
+              </h2>
 
-              <div className="flex flex-col gap-1">
-                <Location className="text-primary" size={20} />
-                <p className="text-muted-foreground text-sm">ADDRESS</p>
-                <p className="font-bold text-foreground">
-                  {student?.address ||
-                    "No 3, Ugbolokposo road, off Ugbomoro street, Apapa, Lagos state."}
-                </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <GraduationCap className="text-primary mt-1" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-1">SCHOOL</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {student?.school || "Not specified"}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Note1 className="text-primary mt-1" size={20} />
+                  <div className="flex-1">
+                    <p className="text-sm text-muted-foreground mb-1">
+                      COURSE OF STUDY
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">
+                      {student?.courseOfStudy || "Not specified"}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="border-t border-primary/20 p-6">
-              <h6 className="font-bold text-foreground mb-3">
+            {/* Application Documents Section */}
+            <div className="p-6">
+              <h2 className="text-lg font-bold text-foreground mb-4">
                 Application Documents
-              </h6>
-              <div className="flex gap-3 items-center">
-                {student?.documentUrls && student.documentUrls.length > 0 ? (
-                  <Button
-                    size="sm"
-                    onClick={() =>
-                      window.open(
-                        student.documentUrls,
-                        "_blank",
-                        "noopener noreferrer"
-                      )
-                    }
-                    className="px-4 py-2 bg-secondary text-secondary-foreground"
-                  >
-                    View
-                  </Button>
-                ) : (
-                  <p className="text-gray-600">No documents uploaded.</p>
-                )}
+              </h2>
 
-                {/* <Button
-                  size="sm"
-                  className="px-4 py-2 bg-secondary text-secondary-foreground"
-                >
-                  <span>Save</span> <ArchiveAdd className="ml-2" size={20} />
-                </Button>
-
+              {student?.documentUrls && student.documentUrls.length > 0 ? (
                 <Button
-                  size="sm"
-                  className="px-4 py-2 bg-primary text-primary-foreground"
+                  size="lg"
+                  onClick={() =>
+                    window.open(
+                      student.documentUrls,
+                      "_blank",
+                      "noopener noreferrer"
+                    )
+                  }
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
                 >
-                  Shortlist
-                </Button> */}
-              </div>
+                  View Documents
+                </Button>
+              ) : (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No documents uploaded.
+                </p>
+              )}
             </div>
           </div>
         </div>
